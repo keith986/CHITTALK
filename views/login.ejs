@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I KNOW YOU</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+</head>
+<script>
+function preventBack() { window.history.forward(); }
+setTimeout("preventBack()", 0);
+window.onunload = function () { null };
+</script>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    .container-fluid {
+        max-width: 800px;
+        margin: 0 auto;
+        margin-top: 5%;
+    }
+
+    .row {
+        display: flex;
+        flex-direction: row;
+        border-radius: 3px;
+    }
+
+    .col {
+        margin: 10px;
+        border: 1px solid #000;
+        padding: 20px;
+    }
+
+    #username {
+        width: 100%;
+        padding: 10px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    #passcode {
+        width: 100%;
+        padding: 10px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    #submit {
+        width: 100%;
+        padding: 10px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        background-color: #000;
+        color: #fff;
+        border-radius: 5px;
+        border: none;
+    }
+
+    #submit:active{
+       width: 97%;
+    }
+
+    .user-icon, .pass-icon {
+        font-size : 20px;
+    }
+
+</style>
+<body>
+
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class="col">
+                <h1>I KNOW YOU</h1>
+                <br/>
+                <strong>Login</strong>
+                <br/>
+                <form method="post">
+                    <input type="text" id="username" name="username" placeholder="enter your username or email address"/>
+                    <i class="bi-person-square user-icon"></i>
+                    <input type="password" id="passcode" name="passcode" placeholder="enter your password"/>
+                    <i class="bi-lock-fill pass-icon"></i>
+                    <button type="submit" id="submit" name="submit">Login</button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
