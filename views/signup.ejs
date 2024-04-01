@@ -15,9 +15,9 @@
     }
 
     .container-fluid {
-        max-width: 800px;
+        max-width: 900px;
         margin: 0 auto;
-        margin-top: 5%;
+        margin-top: 10%;
     }
 
     .row {
@@ -27,6 +27,7 @@
     }
 
     .col {
+        width: 100vw;
         margin: 10px;
         border: 1px solid #000;
         padding: 20px;
@@ -34,6 +35,13 @@
 
     #username {
         width: 100%;
+        padding: 10px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    #fname, #lname {
+        width: 40%;
         padding: 10px;
         margin-top: 10px;
         margin-bottom: 10px;
@@ -65,6 +73,66 @@
         font-size : 20px;
     }
 
+    .signup {
+        color: #000;
+        text-decoration: none;
+        float: inline-end;
+        margin-top: 10px;
+    }
+
+    .signup:hover {
+        color: blue;
+        text-decoration: underline;
+    }
+
+    .btn {
+        width: 40%;
+        background-color: rgba(0, 38, 255, 0.571);
+        padding: 10px;
+        float: inline-end;
+        border-radius: 5px;
+        border: none;
+        
+    }
+
+    .btn2 {
+        width: 40%;
+        background-color: gray;
+        padding: 10px;
+        float: inline-start;
+        border-radius: 5px;
+        border: none;
+    }
+
+    .btn:active {
+        padding: 12px;
+        font-size: 18px;
+    }
+
+    .btn:hover {
+        cursor: pointer;
+    }
+
+    .second, .third, .fourth, .fifth, .sixth {
+        display: none;
+    }
+
+    #error{
+        margin: 20px;
+        font-size: 18px;
+        font-family: monospace;
+        color: red;
+    }
+
+    #err,#err2{
+        width: 100%;
+        margin-top: 20px;
+        margin-bottom: 20px;
+        font-size: 18px;
+        font-family: monospace;
+    }
+
+
 </style>
 <body>
 
@@ -72,18 +140,175 @@
         <div class="row">
 
             <div class="col">
-                <h1>I KNOW YOU</h1>
-                <br/>
-                <strong>Sign Up</strong>
-                <br/>
-            <input type="text" id="username" name="username" placeholder="create your username"/>
-            <input type="text" id="username" name="email" placeholder="enter your email address"/>
-            <input type="number" id="username" min="0" max="100" name="age" placeholder="enter your age"/>
-            <input type="date" id="username" name="dob" placeholder="enter your date of Birth"/>
-            <input type="password" id="passcode" name="passcode" placeholder="create your password"/>
-            <input type="password" id="passcode" name="confirm" placeholder="confirm your password"/>
-            <button type="submit" id="submit" name="submit">Sign Up</button>
+                <div class="form">
+                    <form>
+
+                        <div class="first">
+                            <label class="label">Create your username</label>
+                            <input type="text" id="username" class="user" name="username" placeholder="create your username" required/>
+                            <span id="error">Find me a cool name</span>
+                            <button type="button" class="btn" id="first">Next</button>
+                            <script>
+                                $(document).ready(function(){
+
+                                
+                                    $('.user').keydown(function(){
+                                        $('#error').html('I see you &#128513;')
+                                        $('#error').css('color','green')
+                                    })
+
+                                    $('.user').keyup(function(){
+                                        $('#error').html('Is that it?')
+                                        $('#error').css('color','black')
+                                    })
+
+                                    $('#first').on('click', function(){
+                                        var check = $('.user').val();
+
+                                        if(check.length > 0){
+                                        $('.first').animate({
+                                            width: "toggle",
+                                        })
+                                        $('.second').show('animate')
+                                        $('#error').text('I love it!')
+                                        $('#error').css('color','green')
+                                        }else{
+                                            $('.user').css('border','1px solid red')
+                                            $('#error').html('You entered nothing &#128542;')
+                                        }
+
+                                    })
+                                })
+                            </script>
+                        </div>
+            
+                        <div class="second">
+                            <span id="err"></span><label class="label">First name</label>
+                            <input type="text" id="username" class="fuser" name="fname" placeholder="enter your first name" required/>
+                            
+                            <span id="err2"></span> <label class="label">Last name</label>
+                            <input type="text" id="username" class="luser" name="lname" placeholder="enter your last name" required/>
+                            <button type="button" class="btn" id="second">Next</button>
+                            <button type="button" class="btn2" id="second2">Back</button>
+
+                            <script>
+                                $(document).ready(function(){
+                                    var user1 = $('.fuser').val();
+                                    var user2 = $('luser').val();
+                                   
+                                    $('#second').on('click', function(){
+                                  /*  if(user1.length > 0 && user2.length > 0 ){
+                                        $('.second').animate({
+                                            width: "toggle"
+                                        })
+                                        $('.third').show('animate')
+                                    }else{
+                                        $('.fuser').css('border','1px solid red')
+                                        $('.luser').css('border','1px solid red')
+                                        $('#err').html("&#128553")
+                                        $('#err').css('color','red')
+                                        $('#err2').html("&#128553")
+                                        $('#err2').css('color','red')
+                                    }*/
+
+                                    if(user1.length > 0 ){
+                                        if(user2.length > 0){
+                                            $('.second').animate({
+                                            width: "toggle"
+                                        })
+                                        $('.third').show('animate')
+                                    }else{
+                                        $('.fuser').css('border','1px solid red')
+                                        $('#err').html("&#128553")
+                                        $('#err').css('color','red')
+                                    }
+                                    }else{
+                                        $('.luser').css('border','1px solid red')
+                                        $('#err2').html("&#128553")
+                                        $('#err2').css('color','red')
+                                    }
+                                   
+                                    
+                                    })
+                                    
+                                })
+
+                                var second2 = document.querySelector('#second2');
+                                second2.addEventListener('click', () => {
+                                    window.history.back();
+                                })
+                            </script>
+                        </div>
+            
+                        <div class="third">
+                            <label>Enter your email address:</label>
+                        <input type="email" id="username" name="email" placeholder="enter your email address" required/>
+                        <button type="button" class="btn" id="third">Next</button>
+
+                        <script>
+                            $(document).ready(function(){
+                                $('#third').on('click', function(){
+                                    $('.third').animate({
+                                        width: "toggle",
+                                    })
+                                    $('.fourth').show('animate')
+                                })
+                            })
+                        </script>
+                        </div>
+            
+                        <div class="fourth">
+                        <input type="text" id="fname" name="age" placeholder="enter your age" required/>
+                        <input type="tel" id="lname" name="phone" placeholder="enter your phone number" required/>
+                        <input type="date" id="fname" name="dob" placeholder="enter your date of Birth" required/>
+                        <input type="tel" id="lname" name="relation" placeholder="whats your relationship status" required/>
+                        <input type="tel" id="lname" name="country" placeholder="enter your country" required/>
+                        <input type="tel" id="lname" name="city" placeholder="enter your city" required/>
+                        <button type="button" class="btn" id="fourth">Next</button>
+
+                        <script>
+                            $(document).ready(function(){
+                                $('#fourth').on('click', function(){
+                                    $('.fourth').animate({
+                                        width: "toggle",
+                                    })
+                                    $('.fifth').show('animate')
+                                })
+                            })
+                        </script>
+                        </div>
+            
+                        <div class="fifth">
+                        <input type="file" id="lname" name="pic" required/>
+                        <button type="button" class="btn" id="fifth">Next</button>
+                        <script>
+                            $(document).ready(function(){
+                                $('#fifth').on('click', function(){
+                                    $('.fifth').animate({
+                                        width: "toggle",
+                                    })
+                                    $('.sixth').show('animate')
+                                })
+                            })
+                        </script>
+                        </div>
+            
+                        <div class="sixth">
+                            <input type="password" id="passcode" name="passcode" placeholder="create your password" required/>
+                            <input type="password" id="passcode" name="confirm" placeholder="confirm your password" required/>
+                            <button type="submit" id="submit" name="submit">Sign Up</button>
+                        </div>
+
+                    </form>
+                </div>
+
+            <br/>
+            <br/>
+                <a href="/login" class="signup">Already have an Account? Click here</a>
+
+
             </div>
+
         </div>
     </div>
 

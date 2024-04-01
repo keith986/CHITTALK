@@ -1,8 +1,19 @@
 const express = require('express')
 const morgan = require('morgan')
 const conn = require('./models/admin')
+const session = require('express-session')
 
 const app = express()
+
+//set session
+app.set('trust proxy', 1) // trust first proxy
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: true }
+}))
+
 
 //register view engine
 app.set('view engine', 'ejs')
@@ -21,8 +32,13 @@ app.listen('3000', () => {
     console.log('Listening to port 3000')
 })
 
-app.get('/dashboard', (req,res) => {
+app.get('/', (req,res) => {
+    if(req.session.view){
+    console.log(req.session)
     res.render('index')
+    }else{
+        res.redirect('/login')
+    }
 })
 
 app.get('/login', (req,res) => {
@@ -41,7 +57,8 @@ app.post('/login', (req,res) => {
         if(result.length > 0){
             res.render('index', {result})
         }else {
-            res.redirect('/login');
+            var errs = "Wrong Credentials";
+            res.render('login', {errs});
             console.log('Wrong Credentials');
         }
 
@@ -50,4 +67,13 @@ app.post('/login', (req,res) => {
 
 app.get('/signup', (req,res) => {
     res.render('signup')
+})
+
+app.get('/logout', (req,res) => {
+
+    req.session.destroy((err, result) => {
+        res.redirect('/')
+        console.log(result)
+    })
+
 })

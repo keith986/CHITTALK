@@ -70,6 +70,26 @@ window.onunload = function () { null };
         font-size : 20px;
     }
 
+    .signup {
+        color: #000;
+        text-decoration: none;
+        float: inline-end;
+    }
+
+    .signup:hover {
+        color: blue;
+        text-decoration: underline;
+    }
+
+    .alert {
+        background-color: red;
+        color: #fff;
+        padding: 10px;
+        width: 100%;
+        border-radius: 5px;
+        margin: 10px;
+    }
+
 </style>
 <body>
 
@@ -80,16 +100,37 @@ window.onunload = function () { null };
                 <h1>I KNOW YOU</h1>
                 <br/>
                 <strong>Login</strong>
-                <br/>
+
+                <% if(typeof errs !== 'undefined'){%>
+                    <div class="alert">
+                        <p><%= errs %></p>
+                    </div>
+
+                    <script>
+                        $(document).ready(function(){
+                            setInterval(()=>{
+                                $('.alert').hide('animate');
+                            }, 3000)
+                        })
+                    </script>
+
+                <% } %>
+              
                 <form method="post">
                     <input type="text" id="username" name="username" placeholder="enter your username or email address"/>
                     <i class="bi-person-square user-icon"></i>
                     <input type="password" id="passcode" name="passcode" placeholder="enter your password"/>
                     <i class="bi-lock-fill pass-icon"></i>
+                    <br/>
+                    <br/>
+                    <a href="/reset-password" class="signup">Forgot Password?</a>
+                    <br/>
                     <button type="submit" id="submit" name="submit">Login</button>
                 </form>
-
+                <br/>
+                <a href="/signup" class="signup">Need an Account? Click here</a>
             </div>
+
         </div>
     </div>
 

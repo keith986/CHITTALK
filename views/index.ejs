@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -127,6 +128,21 @@
 
    #btn-logout > a {
     text-decoration: none;
+    color: #fff;
+   }
+
+   #btn-login{
+    min-width: 100%;
+    border-radius: 2px;
+    border: none;
+    background-color: #0059ff;
+    color: #fff;
+    padding: 5px;
+    margin-top: 20px;
+   }
+
+   #btn-login > a {
+    text-decoration: none;
     color: #000;
    }
 
@@ -162,7 +178,11 @@
    }
 
 </style>
-
+<script>
+    function preventBack() { window.history.forward(); }
+    setTimeout("preventBack()", 0);
+    window.onunload = function (e) {e.preventDefault()};
+    </script>
 <body>
     <nav class="navbar">
         <div class="navbar-brand">
@@ -186,7 +206,9 @@
                                     <%result.forEach(data => {%>
                                 <img src="<%= data.pic %>" id="img"/>
                                     <% }) %>
-                                <% } %>
+                                <% }else{ %>
+                                    You need to login in
+                                    <% } %>
                                 <strong id="username">
                                     <%if(typeof result !== 'undefined'){%>
                                     <%result.forEach(data => {%>
@@ -207,7 +229,11 @@
                     </ul>
 
                     <div class="logout">
-                       <button type="button" id="btn-logout"> <a href="logout"> Log out</a> </button>
+                        <%if(typeof result !== 'undefined'){%>
+                        <button type="button" id="btn-logout"><a href="logout"> Log out</a> </button>
+                            <% }else{ %>
+                        <button type="button" id="btn-login"> <a href="/login"> Login / Sign Up</a> </button>
+                       <% } %>
                     </div>
 
                 </div>
