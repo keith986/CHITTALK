@@ -5,277 +5,53 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>I KNOW YOU</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="style.css"/>
+    <script src="style.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"></script>
 </head>
-
-<style>
-    *{
-        padding: 0;
-        margin: 0;
-        box-sizing: border-box;
-    }
-
-    .navbar {
-        min-width: 100vw;
-        background-color: black;
-        color: #fff;
-        display: flex;
-        justify-content: space-between;
-    }
-
-
-    .navbar-nav {
-        display: flex;
-        align-items: stretch;
-        flex-wrap: wrap;
-        flex-direction: row;
-        justify-content: flex-end;
-    }
-
-    .navbar-nav > div {
-        margin : 5px;
-        padding: 5px;
-        align-items: center;
-    }
-
-    .navbar-nav > div > i {
-        font-size: 20px;
-        margin: 5px;
-    }
-
-    .navbar-nav > div > i:active {
-        cursor: pointer;
-        font-size: 16px;
-        transition: ease-in-out;
-    }
-
-    .navbar-brand {
-        justify-content: flex-start;
-        margin: 5px;
-    }
-    
-    .bell {
-        color: burlywood;
-    }
-
-    .chat {
-        color : blanchedalmond;
-    }
-
-    #dropdown {
-        display: none;
-        position: absolute;
-        width: 200px;
-        min-height: 150px;
-        max-height: 300px;
-        margin-right: 10px;
-        background-color: beige;
-        padding: 5px;
-        right: 0;
-        border-radius: 5px;
-    }
-
-    #profile{
-        display: flex;
-        justify-content: space-around;
-        text-decoration: none;
-        color: black;
-        margin-bottom: 4px;
-    }
-
-    @media screen and (max-width: 600px) {
-        #dropdown {
-            display: none;
-            min-height: 100vh;
-            bottom: 0;
-            top: 0;
-            margin: 0;
-            border-radius: 0;
-        }
-    }
-
-    #img {
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-    }
-
-    #close {
-        font-size: 16px;
-        background-color: #ff2400;
-        border-radius: 50%;
-        padding : 2px;
-        color: #fff;
-        border: none;
-        box-shadow: 0 0 1px 1px #c12626;
-        margin-bottom: 10px;
-    }
-
-    .set {
-        margin-top: 10px;
-    }
-
-   #btn-logout{
-    min-width: 100%;
-    border-radius: 2px;
-    border: none;
-    background-color: #ff2400;
-    color: #fff;
-    padding: 5px;
-    margin-top: 20px;
-   }
-
-   #btn-logout > a {
-    text-decoration: none;
-    color: #fff;
-   }
-
-   #btn-login{
-    min-width: 100%;
-    border-radius: 2px;
-    border: none;
-    background-color: #0059ff;
-    color: #fff;
-    padding: 5px;
-    margin-top: 20px;
-   }
-
-   #btn-login > a {
-    text-decoration: none;
-    color: #000;
-   }
-
-
-   .container-fluid{
-    margin: 0 auto;
-    margin-top: 10px;
-    max-width: 1000px;
-   }
-
-   .row{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-   }
-
-   .others{
-    flex: 10%;
-    background-color: #fff09f;
-   }
-
-   .posts{
-    flex: 30%;
-    margin: 10px;
-    background-color: #fff09f;
-   }
-
-   .onlines {
-    flex: 10%;
-    background-color: #fff09f;
-   }
-
-</style>
 <script>
     function preventBack() { window.history.forward(); }
     setTimeout("preventBack()", 0);
     window.onunload = function (e) {e.preventDefault()};
     </script>
-<body>
-    <nav class="navbar">
-        <div class="navbar-brand">
-            <h1>I KNOW YOU</h1>
-        </div>
-        <div class="navbar-nav">
-            <div><i class="bi-bell-fill bell" id="notification"></i></div>
-            <div><i class="bi-chat-square-text-fill chat" id="message"></i></div>
-            <div>
-                <i class="bi-person-gear" id="settings"></i>
-                <div id="dropdown">
-                    <ul id="dropdown-menu">
+  <body>
 
-                        <li>
-                            <button type="button" id="close"><i class="bi-x-lg"></i></button>
-                        </li>
-
-                        <li id="dropdown-item">
-                            <a href="#" id="profile">
-                                <%if(typeof result !== 'undefined'){%>
-                                    <%result.forEach(data => {%>
-                                <img src="<%= data.pic %>" id="img"/>
-                                    <% }) %>
-                                <% }else{ %>
-                                    You need to login in
-                                    <% } %>
-                                <strong id="username">
-                                    <%if(typeof result !== 'undefined'){%>
-                                    <%result.forEach(data => {%>
-                                        <%= data.username %>
-                                    <% }) %>
-                                    <% } %>
-                                </strong>
-                            </a>
-                        </li>
-
-                        <hr/>
-
-                        <li id="dropdown-item" class="set">
-                            <a href="" id="profile">
-                                <span><i class="bi-gear-fill"></i> Settings</span>
-                            </a>
-                        </li>
-                    </ul>
-
-                    <div class="logout">
-                        <%if(typeof result !== 'undefined'){%>
-                        <button type="button" id="btn-logout"><a href="logout"> Log out</a> </button>
-                            <% }else{ %>
-                        <button type="button" id="btn-login"> <a href="/login"> Login / Sign Up</a> </button>
-                       <% } %>
+<section>
+   <div class="container">
+        <h1>I KNOW YOU</h1>
+        <div class="swiper">
+            <swiper-container>
+                <% if(typeof rst !== 'undefined'){%>
+                    <% rst.forEach(item => {%> 
+                <swiper-slide>
+                    <div class="post">
+                        <img src="<%=item.pic%>" class="post-img"/>
+                        <div class="post-body">
+                            <img class="post-avatar" src="<%=item.pic%>" alt="avatar" />
+                            <div class="post-detail">
+                                <h2 class="post-name"><%=item.username%>, <%=item.age%></h2>
+                                <p class="post-author"><%=item.fname%> <%=item.lname%></p>
+                            </div>
+                            <div class="post-actions">
+                                <a class="post-like" href="javascript:void(0)">
+                                    <i class="bi bi-heart-fill"></i>
+                                </a>
+                                <a class="post-like" href="javascript:void(0)">
+                                    <i class="bi bi-x-lg"></i>
+                                </a>
+                            </div>
+                        </div>
                     </div>
+                </swiper-slide>
+                  <% }) %>
+                <% } %>
 
-                </div>
-            </div>
-        </div>
-    </nav>
-
-    <div class="container-fluid">
-        <div class="row">
-            
-                <div class="others">
-                    1
-                </div>
-           
-            
-                <div class="posts">
-                    2
-                </div>
-          
-            
-                <div class="onlines">
-                    3
-                </div>
-            
+            </swiper-container>
         </div>
     </div>
+</section>
 
-    <!------------script------------>
-    <script>
-        $(document).ready(function(){
-            $('#settings').on('click', function(){
-                $('#dropdown').animate({
-                    width: "toggle"
-                })
-            })
-
-            $('#close').on('click', function(){
-                $('#dropdown').animate({
-                    width: "toggle"
-                })
-            })
-        })
-    </script>
-</body>
+  </body>
 </html>

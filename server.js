@@ -55,7 +55,10 @@ app.post('/login', (req,res) => {
             console.log(error)
         };
         if(result.length > 0){
-            res.render('index', {result})
+            const sqle = `SELECT * FROM users WHERE username != '${username}' AND passcode != '${passcode}'`;
+            conn.query(sqle, (errs, rst) =>{
+                res.render('index', {result, rst})
+            })
         }else {
             var errs = "Wrong Credentials";
             res.render('login', {errs});
