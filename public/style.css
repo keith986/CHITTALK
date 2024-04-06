@@ -55,6 +55,14 @@ body {
     outline: none;
   }
 
+  #gears:hover{
+    transform: rotateX(360deg);
+    -webkit-transform:rotate(360deg);
+    -moz-transform:rotate(360deg); 
+    -o-transform:rotate(360deg);
+  }
+
+
   section {
     display: flex;
     flex-direction: column;
@@ -107,7 +115,6 @@ body {
     margin-bottom: 16px;
     margin-right: 5px;
     margin-left: 5px;
-    cursor: pointer;
   }
 
   .post-img {
