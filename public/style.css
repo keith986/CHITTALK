@@ -94,6 +94,10 @@ body {
     margin: 10px;
   }
 
+  .post-detail{ 
+    margin-left: 5px;
+  }
+
   .post-body {
     display: grid;
     grid-template-columns: 15% 60% 20%;
@@ -168,3 +172,36 @@ body {
   opacity: 1;
   transform: scale(1.2);
 }
+
+/* MEDIA QUERIES */
+
+@media (max-width: 1200px) { 
+    .swiper {
+        width: 80%;
+      }
+  }
+  
+  @media (max-width: 900px) {
+    .swiper {
+      width: 50%;
+    }
+  }
+  
+  @media (max-width: 765px) {
+    .swiper {
+      width: 70%;
+    }
+  }
+  
+  @media (max-width: 550px) {
+  
+    .container{
+        background: transparent;
+        border: none;
+    }
+
+    .swiper {
+      width: 90%;
+      height: 100%;
+    }
+  }
