@@ -91,10 +91,9 @@ app.get('/logout', (req,res) => {
         const updatests = `UPDATE users SET status = 'offline' WHERE id = '${userid}'`;
             conn.query(updatests, (error, results) =>{
                if (error) throw error;
+               res.redirect('/')
                console.log(results + 'User is now offline')
             })
-
-        res.redirect('/')
         console.log(result)
     })
 
