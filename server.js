@@ -32,6 +32,10 @@ app.listen('3000', () => {
     console.log('Listening to port 3000')
 })
 
+app.get('/load', (req,res) => {
+res.render('load')
+})
+
 app.get('/', (req,res) => {
     if(req.session.view){
     console.log(req.session)
@@ -55,11 +59,19 @@ app.post('/login', (req,res) => {
             console.log(error)
         };
         if(result.length > 0){
-            const sqle = `SELECT * FROM users WHERE username != '${username}' AND passcode != '${passcode}'`;
+            const sqle = `SELECT * FROM users WHERE username != '${username}'`;
             conn.query(sqle, (errs, rst) =>{
-                res.render('index', {result, rst})
+                if (errs) throw errs;
+                res.render('index', {result, rst});    
             })
-        }else {
+
+            const updatestatus = `UPDATE users SET status = 'online' WHERE username = '${username}'`;
+            conn.query(updatestatus, (error, results) =>{
+               if (error) throw error;
+               console.log(results + 'User is now online')
+            })
+
+        }else{
             var errs = "Wrong Credentials";
             res.render('login', {errs});
             console.log('Wrong Credentials');
@@ -73,8 +85,15 @@ app.get('/signup', (req,res) => {
 })
 
 app.get('/logout', (req,res) => {
-
+    const userid = req.query.userid;
     req.session.destroy((err, result) => {
+
+        const updatests = `UPDATE users SET status = 'offline' WHERE id = '${userid}'`;
+            conn.query(updatests, (error, results) =>{
+               if (error) throw error;
+               console.log(results + 'User is now offline')
+            })
+
         res.redirect('/')
         console.log(result)
     })

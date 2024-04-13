@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="style.css"/>
     <script src="style.js"></script>
+    <meta http-equiv="refresh"/>
 
     <!---------------swiper js-->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"></script>
@@ -17,53 +18,96 @@
     function preventBack() { window.history.forward(); }
     setTimeout("preventBack()", 0);
     window.onunload = function (e) {e.preventDefault()};
-    </script>
-  <body>
+</script>
 
-<nav class="navbar" id="myNavbar">
-<div class="navbar-brand">
-    <h1>I KNOW YOU</h1>
-</div>
-<div class="navbar-nav">
-<a href="" class="navbar-item"><i class="bi bi-chat-square-text-fill"></i></a>
-<a href="" class="navbar-item" ><i class="bi bi-gear-wide-connected" id="gears"></i></a>    
-</div>
-</nav>
+<body>
+    <% if(typeof result !== 'undefined'){%>
+       <div class="load">
+            <%-include('load.ejs') %>
+       </div>
+<script>
+    $(document).ready(function(){
+        setInterval(()=>{
+            $('.load').hide('animate');
+            $('#body').fadeIn()
+        }, 6000)
+    })
+</script>
+<%}%>
 
-<section>
-   <div class="container">
-        <h1>Do you know me?</h1>
-        <div class="swiper">
-            <swiper-container>
-                <% if(typeof rst !== 'undefined'){%>
-                    <% rst.forEach(item => {%> 
-                <swiper-slide>
-                    <div class="post">
-                        <img src="<%=item.pic%>" class="post-img"/>
-                        <div class="post-body">
-                            <img class="post-avatar" src="<%=item.pic%>" alt="avatar" />
-                            <div class="post-detail">
-                                <h2 class="post-name"><%=item.username%>, <%=item.age%></h2>
-                                <p class="post-author"><%=item.fname%> <%=item.lname%></p>
-                            </div>
-                            <div class="post-actions">
-                                <a class="post-like" href="javascript:void(0)">
-                                    <i class="bi bi-heart-fill"></i>
-                                </a>
-                                <a class="post-like" href="javascript:void(0)">
-                                    <i class="bi bi-chat-text-fill"></i>
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </swiper-slide>
-                  <% }) %>
-                <% } %>
-
-            </swiper-container>
+<div id="body">
+    <nav class="navbar" id="myNavbar">
+        <div class="navbar-brand">
+            <h1>I KNOW YOU</h1>
+            <div class="users-menu"></div>
         </div>
-    </div>
-</section>
+        <div class="navbar-nav">
+        <a href="" class="navbar-item"><i class="bi bi-chat-square-text-fill"></i></a>
+        <a href="#" class="navbar-item" id="gears-btn"><i class="bi bi-gear-wide-connected" id="gears"></i></a>
+         <div class="gear-menu">
+            <% if(typeof result !== 'undefined'){ %>
+                <% result.forEach(detail => { %>
+            <img src="<%=detail.pic%>" class="profile-pic"/>
+            <h3 class="user-status"><%=detail.status%></h3>
+            <h3><%=detail.fname%> <%=detail.lname%></h3>
+            <div class="btns">
+                <a href="" class="user-button"><i class="bi-emoji-smile"></i> <span>Status</span></a>
+                <a href="" class="user-button"><i class="bi-pencil-fill"></i> <span>Edit</span></a>
+            </div>
+            <div class="user-logout">
+                <form action="/logout">
+                    <input type="text" class="userid" name="userid" value="<%=detail.id%>" hidden/>
+                <button class="logout-button"><i class="bi-box-arrow-in-right"></i> <span>Logout</span></button>
+                </form>
+            </div>
+            <% }) %>
+            <% } %>
+         </div>   
+        </div>
+        </nav>
+        
+        
+        <section>
+           <div class="container">
+                <h1>Do you know him/her?</h1>
+                <div class="swiper">
+                    <swiper-container>
+                        <% if(typeof rst !== 'undefined'){%>
+                            <% rst.forEach(item => {%> 
+                        <swiper-slide>
+                            <div class="post">
+                                <i class="bi bi-chevron-down" id="dot"></i>
+                                <div class="description">
+                                    <p>BIO : </p>
+                                    <i>I love Coding</i>
+                                </div>
 
-  </body>
+                                <img src="<%=item.pic%>" class="post-img"/>
+                                <div class="post-body">
+                                    <img class="post-avatar" src="<%=item.pic%>" alt="avatar" />
+                                    <div class="post-detail">
+                                        <h2 class="post-name"><%=item.username%>, <%=item.age%></h2>
+                                        <p class="post-author"><%=item.fname%> <%=item.lname%></p>
+                                    </div>
+                                    <div class="post-actions">
+                                        <a class="post-like" href="javascript:void(0)">
+                                            <i class="bi bi-heart-fill"></i>
+                                        </a>
+                                        <a class="post-like" href="javascript:void(0)">
+                                            <i class="bi bi-chat-text-fill"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </swiper-slide>
+                          <% }) %>
+                        <% } %>
+        
+                    </swiper-container>
+                </div>
+            </div>
+        </section>
+</div>
+
+</body>
 </html>
