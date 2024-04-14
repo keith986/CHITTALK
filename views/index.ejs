@@ -29,8 +29,8 @@
     $(document).ready(function(){
         setInterval(()=>{
             $('.load').hide('animate');
-            $('#body').fadeIn()
-        }, 6000)
+            $('#body').fadeIn();
+        }, 10000)
     })
 </script>
 <%}%>
@@ -42,13 +42,17 @@
             <div class="users-menu"></div>
         </div>
         <div class="navbar-nav">
-        <a href="" class="navbar-item"><i class="bi bi-chat-square-text-fill"></i></a>
+        <a href="/talk" class="navbar-item"><i class="bi bi-chat-square-text-fill"></i></a>
         <a href="#" class="navbar-item" id="gears-btn"><i class="bi bi-gear-wide-connected" id="gears"></i></a>
          <div class="gear-menu">
             <% if(typeof result !== 'undefined'){ %>
                 <% result.forEach(detail => { %>
             <img src="<%=detail.pic%>" class="profile-pic"/>
-            <h3 class="user-status"><%=detail.status%></h3>
+           
+            <h3 class="user-statuses">
+               <%= detail.username %>
+            </h3>
+
             <h3><%=detail.fname%> <%=detail.lname%></h3>
             <div class="btns">
                 <a href="" class="user-button"><i class="bi-emoji-smile"></i> <span>Status</span></a>
@@ -81,7 +85,7 @@
                                     <img class="post-avatar" src="<%=item.pic%>" alt="avatar" />
                                     <div class="post-detail">
                                         <h2 class="post-name"><%=item.username%>, <%=item.age%></h2>
-                                        <p class="post-author"><%=item.fname%> <%=item.lname%></p>
+                                        <p class="post-author"><%=item.prelationship %></p>
                                     </div>
                                     <div class="post-actions">
                                         <a class="post-like" href="javascript:void(0)">

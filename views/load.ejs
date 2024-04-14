@@ -14,12 +14,46 @@
     setTimeout("preventBack()", 0);
     window.onunload = function (e) {e.preventDefault()};
 </script>
+
+<style>
+    .load-container{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .loader {
+      border: 16px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top: 16px solid #3498db62;
+      width: 40px;
+      height: 40px;
+      -webkit-animation: spin 2s linear infinite; /* Safari */
+      animation: spin 2s linear infinite;
+    }
+    
+    /* Safari */
+    @-webkit-keyframes spin {
+      0% { -webkit-transform: rotate(0deg); }
+      100% { -webkit-transform: rotate(360deg); }
+    }
+    
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    </style>
+
+
 <body>
 
 <div class="bodi">
     <section>
         <div class="container">
-             <h1>Loading...</h1>   
+             <h1>Loading...</h1> 
+             <div class="load-container">
+             <div class="loader"></div> 
+             </div> 
          </div>
      </section>
 </div>

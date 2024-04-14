@@ -36,6 +36,11 @@ app.get('/load', (req,res) => {
 res.render('load')
 })
 
+app.get('/talk', (req,res) => {
+    res.render('talk')
+})
+
+    
 app.get('/', (req,res) => {
     if(req.session.view){
     console.log(req.session)
@@ -68,7 +73,7 @@ app.post('/login', (req,res) => {
             const updatestatus = `UPDATE users SET status = 'online' WHERE username = '${username}'`;
             conn.query(updatestatus, (error, results) =>{
                if (error) throw error;
-               console.log(results + 'User is now online')
+               console.log(results + 'User is now online');
             })
 
         }else{
