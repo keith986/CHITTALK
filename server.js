@@ -37,10 +37,37 @@ res.render('load')
 })
 
 app.get('/talk', (req,res) => {
-    res.render('talk')
+    const iduser = req.query.d;
+    console.log(iduser);
+
+    const fetchqry = `SELECT * FROM users WHERE id = '${iduser}'`;
+    conn.query(fetchqry, (error, resultes) => {
+        if (error) throw error;
+        const chatbuddy = `SELECT * FROM users WHERE id != '${iduser}'`;
+        conn.query(chatbuddy, (error, result) => {
+        if (error) throw error;
+        res.render('talk',{rst:result, result: resultes});
+        console.log(result); 
+        })
+        console.log(resultes);
+    });
+
+      //messages
+
+});
+    
+app.get('/talk/chats', (req,res) => {
+    const chatid = req.query.chat;
+    console.log(chatid);
+
+    const chatqry = `SELECT * FROM messages WHERE id='${chatid}'`;
+    conn.query(chatqry, (error,results) => {
+        if (error) throw error;
+        console.log(results);
+        res.redirect('/talk');
+    });
 })
 
-    
 app.get('/', (req,res) => {
     if(req.session.view){
     console.log(req.session)
@@ -51,7 +78,7 @@ app.get('/', (req,res) => {
 })
 
 app.get('/login', (req,res) => {
-    res.render('login')
+    res.render('login') ;
 })
 
 app.post('/login', (req,res) => {

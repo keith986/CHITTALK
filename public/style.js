@@ -7,6 +7,22 @@ $(document).ready(function(){
     })
 })
 
+$(document).ready(function(){
+    $('#users-btn').on('click', function(){
+        $('.users-menu').animate({
+            width: 'toggle'
+        }, 500)
+    })
+})
+
+$(document).ready(function(){
+    $('.attach').on('click', function(){
+        $('.options').animate({
+            width: 'toggle'
+        }, 500)
+    })
+})
+
 
 
 

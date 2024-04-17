@@ -10,10 +10,10 @@
     <link rel="stylesheet" href="style.css"/>
     <script src="style.js"></script>
     <meta http-equiv="refresh"/>
-
     <!---------------swiper js-->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"></script>
 </head>
+
 <script>
     function preventBack() { window.history.forward(); }
     setTimeout("preventBack()", 0);
@@ -38,12 +38,39 @@
 <div id="body">
     <nav class="navbar" id="myNavbar">
         <div class="navbar-brand">
-            <h1>I KNOW YOU</h1>
-            <div class="users-menu"></div>
+            <a href="#" class="navbar-item" id="users-btn"><i class="bi bi-people-fill" id="users"></i></a>
+            <div class="users-menu">
+                <h1>MESSAGE</h1>
+                <hr/>
+                <% if(typeof rst !== 'undefined'){ %>
+                    <% rst.forEach(items => { %>
+                        <div class="post-body">
+                            <img class="post-avatar" src="<%=items.pic%>" alt="avatar"/>
+                            <div class="post-detail">
+                                <h2 class="post-name"><%=items.username%>, <%=items.age%></h2>
+                                <p class="post-author"><%=items.prelationship %></p>
+                            </div>
+                            <div class="post-actions">
+                                <a class="post-like" href="/talk/chats?chat=<%=items.id%>" name="chat">
+                                    <i class="bi bi-chat-dots-fill"></i>
+                                </a>
+                            </div>
+                        </div>
+                    <% }) %>
+                    <% } %>
+            </div>
         </div>
+
+        <h1>I KNOW YOU</h1>
+
         <div class="navbar-nav">
-        <a href="" class="navbar-item"><i class="bi bi-chat-square-text-fill"></i></a>
+            <% if(typeof result !== 'undefined'){ %>
+                <% result.forEach(detailer => { %>
         <a href="#" class="navbar-item" id="gears-btn"><i class="bi bi-gear-wide-connected" id="gears"></i></a>
+              <% }) %>
+              <% }else{ %>
+              <h3>Could not load data</h3>
+              <% } %>
          <div class="gear-menu">
             <% if(typeof result !== 'undefined'){ %>
                 <% result.forEach(detail => { %>
@@ -73,17 +100,35 @@
         
         <section>
            <div class="container">
-                <h1>Messages</h1>
-                <div class="swiper">
-                    
-                        <% if(typeof rst !== 'undefined'){%>
-                            <% rst.forEach(item => {%> 
-                        
-                          <% }) %>
-                        <% } %>
-        
-                    
+                <h1>Chats</h1>
+                <div class="chatzone">
+                 <!---chatzone--------->
+                 <% if(typeof talks !== 'undefined'){ %>
+                    <% talks.forEach(talk => { %>
+                        talk.message
+                    <% }) %>
+                    <% }else{ %>
+                <div class="alert-mess">
+                    <p>Start a new message with anyone</p>
                 </div>
+                    <%}%>
+                </div>
+                <div class="senders">
+                <form>
+
+                    <div class="options">
+                        <div class="options-icon">
+                        <i class="bi bi-image-fill"></i>
+                        <i class="bi bi-files"></i>
+                        <i class="bi bi-earbuds"></i>
+                        </div>
+                    </div>
+
+                <textarea class="textarea"></textarea>
+                <button type="button" class="attach"><i class="bi bi-paperclip"></i></button>
+                <button type="submit" class="send" name="send"><i class="bi bi-send-arrow-up-fill"></i></button>
+                </form>
+               </div>
             </div>
         </section>
 </div>

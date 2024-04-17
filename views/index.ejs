@@ -42,8 +42,12 @@
             <div class="users-menu"></div>
         </div>
         <div class="navbar-nav">
-        <a href="/talk" class="navbar-item"><i class="bi bi-chat-square-text-fill"></i></a>
+            <% if(typeof result !== 'undefined'){ %>    
+                <% result.forEach(detailes => { %>    
+        <a href="/talk?d=<%= detailes.id %>" class="navbar-item" name="d"><i class="bi bi-chat-square-text-fill"></i></a>
         <a href="#" class="navbar-item" id="gears-btn"><i class="bi bi-gear-wide-connected" id="gears"></i></a>
+              <% }) %>
+              <% } %>
          <div class="gear-menu">
             <% if(typeof result !== 'undefined'){ %>
                 <% result.forEach(detail => { %>
