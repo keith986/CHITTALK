@@ -1,6 +1,8 @@
 <?php
 $conn = new Mysqli('localhost','root','','dating');
 
+session_start();
+
 $from = $_POST['fromid'];
 $to = $_POST['toid'];
 $mess = $_POST['mess'];

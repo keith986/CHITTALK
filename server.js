@@ -2,7 +2,6 @@ const express = require('express')
 const morgan = require('morgan')
 const conn = require('./models/admin')
 const session = require('express-session')
-const sphp = require('sphp');
 
 const app = express()
 
@@ -23,8 +22,9 @@ app.set('view engine', 'ejs')
 app.use(morgan('dev'))
 
 //use public data
-app.use(sphp.express('public'));
 app.use(express.static('public'));
+
+
 //url extend url
 app.use(express.urlencoded({extended: false}))
 
@@ -52,9 +52,6 @@ app.get('/talk', (req,res) => {
         })
         console.log(resultes);
     });
-
-      //messages
-
 });
     
 app.post('/talk', (req,res) => {
@@ -147,6 +144,19 @@ app.get('/logout', (req,res) => {
             })
         console.log(result)
     })
-
 })
 
+
+app.post('/message', (req,res) => {
+    let fromid = req.body.fromid;
+    let toid = req.body.toid;
+    let mess = req.body.mess;
+    let dater = req.body.dater;
+    let timer = req.body.timer;
+
+    const sendmsg = `INSERT INTO messages(toid,fromid,mesg,time_stamp,date) VALUES('${toid}','${fromid}','${mess}','${timer}','${dater}')`;
+    conn.query(sendmsg, (error,result) => {
+        if (error) throw error;
+        console.log('Message sent Successfully' + result);
+    }) 
+});

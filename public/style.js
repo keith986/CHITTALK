@@ -34,8 +34,8 @@ let min = dater.getMinutes();
 let h = dater.getHours();
 let s = dater.getSeconds();
 
-const tarehe = d + '/ ' + m + '/ ' + y ; 
-const timer = h + ': ' + min + ': ' + s; 
+const tarehe = d + '/' + m + '/' + y ; 
+const timer = h + ':' + min + ':' + s; 
 
 $(document).ready(function(){
     var frmid= $('#frmid').val();
@@ -44,8 +44,9 @@ $(document).ready(function(){
 
     console.log(frmid, tid, mesgs);
 
+ 
    $.ajax({
-       url : 'message.php',
+       url : '/message',
        type: 'POST',
        data: {
            toid: $('#tid').val(),
@@ -60,7 +61,12 @@ $(document).ready(function(){
            console.log('sent message' + data);
        }
    });
+ 
+   $('#mess').val('');
+
  });
+
+
 
   
 }
