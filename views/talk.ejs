@@ -7,6 +7,7 @@
     <title>I KNOW YOU</title>
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link rel="stylesheet" href="style.css"/>
     <script src="style.js"></script>
     <meta http-equiv="refresh"/>
@@ -30,7 +31,7 @@
         setInterval(()=>{
             $('.load').hide('animate');
             $('#body').fadeIn();
-        }, 10000)
+        }, 4000)
     })
 </script>
 <%}%>
@@ -43,7 +44,7 @@
                 <h1>MESSAGE</h1>
                 <hr/>
                 <% if(typeof rst !== 'undefined'){ %>
-                    <% rst.forEach(items => { %>
+                    <% rst.forEach((items) => { %>
                         <div class="post-body">
                             <img class="post-avatar" src="<%=items.pic%>" alt="avatar"/>
                             <div class="post-detail">
@@ -51,9 +52,17 @@
                                 <p class="post-author"><%=items.prelationship %></p>
                             </div>
                             <div class="post-actions">
-                                <a class="post-like" href="/talk/chats?chat=<%=items.id%>" name="chat">
+                                <form method="post">
+                                    <% if(typeof result !== 'undefined'){ %>
+                                        <% result.forEach(detailers => { %>
+                                            <input type="text" name="userid" value="<%=detailers.id%>" hidden/>
+                                        <% }) %>
+                                        <% } %>
+                                    <input type="text" name="chat" value="<%=items.id%>" hidden/>
+                                <button type="submit" class="post-btn">
                                     <i class="bi bi-chat-dots-fill"></i>
-                                </a>
+                                </button>
+                                </form>
                             </div>
                         </div>
                     <% }) %>
@@ -101,21 +110,41 @@
         <section>
            <div class="container">
                 <h1>Chats</h1>
+                <% if(typeof chatuser !== 'undefined'){ %>
+                    <% chatuser.forEach(datauser => { %>
+                        <img src="<%=datauser.pic%>" class="post-avatar"/>
+                    <% }) %>
+                    <% } %>
                 <div class="chatzone">
                  <!---chatzone--------->
-                 <% if(typeof talks !== 'undefined'){ %>
-                    <% talks.forEach(talk => { %>
-                        talk.message
-                    <% }) %>
-                    <% }else{ %>
-                <div class="alert-mess">
-                    <p>Start a new message with anyone</p>
-                </div>
-                    <%}%>
+                 <% if(typeof talk !== 'undefined'){ %>
+                    <% talk.forEach(chats => { %>
+                        <% if(typeof chatuser !== 'undefined'){ %>
+                            <% chatuser.forEach(datauser => { %>
+                              
+                                <% if(chats.fromid === datauser.id){  %>
+                                    <div class="alert-mess">
+                                        <p><%=chats.mesg%></p>
+                                    </div>
+                                   <% } %>
+
+                                   <% if(chats.fromid !== datauser.id){  %>
+                                    <div class="alert-mess">
+                                        <p><%=chats.mesg%></p>
+                                    </div>
+                                   <% } %>
+
+                                  <% }) %>
+                                 <% } %>
+                                 <% }) %>
+                <% }else{ %>
+               <div class="alert-mess">
+                <p>Start a new message</p>
+               </div>
+                <%}%>
                 </div>
                 <div class="senders">
-                <form>
-
+                   
                     <div class="options">
                         <div class="options-icon">
                         <i class="bi bi-image-fill"></i>
@@ -124,10 +153,23 @@
                         </div>
                     </div>
 
-                <textarea class="textarea"></textarea>
-                <button type="button" class="attach"><i class="bi bi-paperclip"></i></button>
-                <button type="submit" class="send" name="send"><i class="bi bi-send-arrow-up-fill"></i></button>
-                </form>
+                    <% if(typeof chatuser !== 'undefined'){ %>
+                        <% chatuser.forEach(datauser => { %>
+                            <input type="text" name="tid" id="tid" value="<%=datauser.id%>" hidden/>
+                        <% }) %>
+                        <% } %>
+
+                        <% if(typeof result !== 'undefined'){ %>
+                            <% result.forEach(userd => { %>
+                                <input type="text" name="frmid" id="frmid" value="<%=userd.id%>" hidden/>
+                            <% }) %>
+                            <% } %>
+
+                <input class="textarea" name="mess" id="mess"/>
+                <button type="button" class="attach"><i class="bi bi-paperclip" onclick="sendMessage()"></i></button>
+                <button type="submit" class="send"><i class="bi bi-send-arrow-up-fill"></i></button>
+
+
                </div>
             </div>
         </section>

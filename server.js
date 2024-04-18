@@ -2,6 +2,7 @@ const express = require('express')
 const morgan = require('morgan')
 const conn = require('./models/admin')
 const session = require('express-session')
+const sphp = require('sphp');
 
 const app = express()
 
@@ -22,8 +23,8 @@ app.set('view engine', 'ejs')
 app.use(morgan('dev'))
 
 //use public data
-app.use(express.static('public'))
-
+app.use(sphp.express('public'));
+app.use(express.static('public'));
 //url extend url
 app.use(express.urlencoded({extended: false}))
 
@@ -56,24 +57,42 @@ app.get('/talk', (req,res) => {
 
 });
     
-app.get('/talk/chats', (req,res) => {
-    const chatid = req.query.chat;
+app.post('/talk', (req,res) => {
+    const chatid = req.body.chat;
+    const usersid = req.body.userid;
     console.log(chatid);
+    console.log(usersid);
 
-    const chatqry = `SELECT * FROM messages WHERE id='${chatid}'`;
+    const chatqry = `SELECT * FROM messages WHERE toid='${chatid}'`;
     conn.query(chatqry, (error,results) => {
         if (error) throw error;
         console.log(results);
-        res.redirect('/talk');
-    });
+        const fetchqry = `SELECT * FROM users WHERE id = '${usersid}'`;
+        conn.query(fetchqry, (error, resultes) => {
+        if (error) throw error;
+        console.log(resultes);
+        const fetchqrys = `SELECT * FROM users WHERE id = '${chatid}'`;
+        conn.query(fetchqrys, (error, resultss) => {
+        if (error) throw error;
+        console.log(resultss);
+        const fetchqryss = `SELECT * FROM users WHERE id != '${chatid}'`;
+        conn.query(fetchqryss, (error, resultses) => {
+        if (error) throw error;
+        console.log(resultses);
+        res.render('talk', {result: resultes, talk: results, chatuser: resultss, rst:resultses});
+       });
+       });
+       });
+       });
+
 })
 
 app.get('/', (req,res) => {
     if(req.session.view){
     console.log(req.session)
-    res.render('index')
+    res.render('index');
     }else{
-        res.redirect('/login')
+        res.redirect('/login');
     }
 })
 
@@ -130,3 +149,4 @@ app.get('/logout', (req,res) => {
     })
 
 })
+

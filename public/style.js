@@ -23,7 +23,47 @@ $(document).ready(function(){
     })
 })
 
+function sendMessage(){
 
+const dater = new Date();
+let m = dater.getMonth() + 1;
+let d = dater.getDate();
+let y = dater.getFullYear();
+
+let min = dater.getMinutes();
+let h = dater.getHours();
+let s = dater.getSeconds();
+
+const tarehe = d + '/ ' + m + '/ ' + y ; 
+const timer = h + ': ' + min + ': ' + s; 
+
+$(document).ready(function(){
+    var frmid= $('#frmid').val();
+    var tid = $('#tid').val();
+    var mesgs = $('#mess').val();
+
+    console.log(frmid, tid, mesgs);
+
+   $.ajax({
+       url : 'message.php',
+       type: 'POST',
+       data: {
+           toid: $('#tid').val(),
+           fromid: $('#frmid').val(),
+           mess: $('#mess').val(),
+           dater: tarehe,
+           timer: timer,
+       },
+       dataType: 'text',
+       success:function(data){
+           $('#mess').val('');
+           console.log('sent message' + data);
+       }
+   });
+ });
+
+  
+}
 
 
 

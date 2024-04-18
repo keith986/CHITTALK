@@ -300,6 +300,22 @@ body {
   opacity: 1;
 }
 
+.post-btn {
+  border: none;
+  margin-right: 5px;
+  font-size: 30px;
+  border-radius: 50%;
+  overflow: hidden;
+  transition: all 0.35s ease;
+  padding: 5px;
+  background-color: #dda3b6;
+  cursor: pointer;
+}
+
+.post-btn:hover{
+  opacity: 0.5;
+}
+
 .post-like:focus {
   outline: none;
 }
@@ -354,6 +370,7 @@ cursor: pointer;
     -webkit-backdrop-filter: blur(20px);
     position: absolute;
     bottom: 0;
+  padding: 5px;
 }
 
 .attach{
@@ -396,7 +413,6 @@ max-width: 10%;
 
 .chatzone{
   width: 100%;
-  margin-top: 10px;
   margin-bottom: 20px;
   padding: 10px;
   min-height: 400px;
