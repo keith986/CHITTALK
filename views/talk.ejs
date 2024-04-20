@@ -123,24 +123,30 @@
                             <% chatuser.forEach(datauser => { %>
                               
                                 <% if(chats.fromid === datauser.id){  %>
+                                    <br/><br/>
                                     <div class="alert-mess">
                                         <p><%=chats.mesg%></p>
                                     </div>
+                                    <br/><br/>
                                    <% } %>
 
                                    <% if(chats.fromid !== datauser.id){  %>
+                                    <br/>
                                     <div class="alert-user">
                                         <p><%=chats.mesg%></p>
                                     </div>
+                                    <br/>
                                    <% } %>
 
                                   <% }) %>
                                  <% } %>
                                  <% }) %>
                 <% }else{ %>
+                    <br/>
                <div class="alert-mess">
                 <p>Start a new message</p>
                </div>
+               <br/>
                 <%}%>
                 </div>
                 <div class="senders">
