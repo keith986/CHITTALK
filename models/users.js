@@ -43,8 +43,8 @@ const usersSchema = new Schema({
         require: true
     },
     images: {
-        data: Buffer,
-        contentType: String
+        type: String,
+        require: true
     },
     passcode: {
         type: String,

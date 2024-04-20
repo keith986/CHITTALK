@@ -92,12 +92,13 @@ const usersdata = users({
     relationship: `${relation}`,
     country : `${country}`,
     city : `${city}`,
-    images :{data: req.file.filename},
+    images :req.file.filename,
     passcode: `${passcode}`
     });
      
     usersdata.save()
              .then((result) => {
+            
                 console.log('User added Successfully ' + result);
               })
              .catch((error) => console.log(error));
