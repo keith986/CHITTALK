@@ -46,7 +46,7 @@
                 <% if(typeof rst !== 'undefined'){ %>
                     <% rst.forEach((items) => { %>
                         <div class="post-body">
-                            <img class="post-avatar" src="<%=items.pic%>" alt="avatar"/>
+                            <img class="post-avatar" src="<%=items.images%>" alt="avatar"/>
                             <div class="post-detail">
                                 <h2 class="post-name"><%=items.username%>, <%=items.age%></h2>
                                 <p class="post-author"><%=items.prelationship %></p>
@@ -54,11 +54,9 @@
                             <div class="post-actions">
                                 <form method="post">
                                     <% if(typeof result !== 'undefined'){ %>
-                                        <% result.forEach(detailers => { %>
-                                            <input type="text" name="userid" value="<%=detailers.id%>" hidden/>
-                                        <% }) %>
+                                            <input type="text" name="userid" value="<%=result._id%>" hidden/>
                                         <% } %>
-                                    <input type="text" name="chat" value="<%=items.id%>" hidden/>
+                                    <input type="text" name="chat" value="<%=items._id%>" hidden/>
                                 <button type="submit" class="post-btn">
                                     <i class="bi bi-chat-dots-fill"></i>
                                 </button>
@@ -73,34 +71,32 @@
         <h1>I KNOW YOU</h1>
 
         <div class="navbar-nav">
-            <% if(typeof result !== 'undefined'){ %>
-                <% result.forEach(detailer => { %>
-        <a href="#" class="navbar-item" id="gears-btn"><i class="bi bi-gear-wide-connected" id="gears"></i></a>
-              <% }) %>
+            <% if(typeof result !== 'undefined'){ %>         
+        <a href="#" class="navbar-item" id="gears-btn"><i class="bi bi-gear-wide-connected" id="gears"></i></a>        
               <% }else{ %>
               <h3>Could not load data</h3>
               <% } %>
          <div class="gear-menu">
             <% if(typeof result !== 'undefined'){ %>
-                <% result.forEach(detail => { %>
-            <img src="<%=detail.pic%>" class="profile-pic"/>
+                
+            <img src="<%=result.images%>" class="profile-pic"/>
            
             <h3 class="user-statuses">
-               <%= detail.username %>
+               <%= result.username %>
             </h3>
 
-            <h3><%=detail.fname%> <%=detail.lname%></h3>
+            <h3><%=result.fname%> <%=result.lname%></h3>
             <div class="btns">
                 <a href="" class="user-button"><i class="bi-emoji-smile"></i> <span>Status</span></a>
                 <a href="" class="user-button"><i class="bi-pencil-fill"></i> <span>Edit</span></a>
             </div>
             <div class="user-logout">
                 <form action="/logout">
-                    <input type="text" class="userid" name="userid" value="<%=detail.id%>" hidden/>
+                    <input type="text" class="userid" name="userid" value="<%=result._id%>" hidden/>
                 <button class="logout-button"><i class="bi-box-arrow-in-right"></i> <span>Logout</span></button>
                 </form>
             </div>
-            <% }) %>
+       
             <% } %>
          </div>   
         </div>
@@ -110,37 +106,33 @@
         <section>
            <div class="container">
                 <h1>Chats</h1>
-                <% if(typeof chatuser !== 'undefined'){ %>
-                    <% chatuser.forEach(datauser => { %>
-                        <img src="<%=datauser.pic%>" class="post-avatar"/>
-                    <% }) %>
+                <% if(typeof chatuser !== 'undefined'){ %>            
+                        <img src="<%=chatuser.images%>" class="post-avatar"/>
                     <% } %>
                 <div class="chatzone">
                  <!---chatzone--------->
                  <% if(typeof talk !== 'undefined'){ %>
                     <% talk.forEach(chats => { %>
                         <% if(typeof chatuser !== 'undefined'){ %>
-                            <% chatuser.forEach(datauser => { %>
                               
-                                <% if(chats.fromid === datauser.id){  %>
-                                    <br/><br/>
+                                <% if(chats.fromid == chatuser._id){  %>
+                                    <br/>
                                     <div class="alert-mess">
-                                        <p><%=chats.mesg%></p>
+                                        <p><%=chats.mesg %></p>
                                     </div>
-                                    <br/><br/>
-                                   <% } %>
-
-                                   <% if(chats.fromid !== datauser.id){  %>
+                                    <br/>
+                                <% } %>
+                                
+                                <%if(chats.toid == chatuser._id){%>
                                     <br/>
                                     <div class="alert-user">
-                                        <p><%=chats.mesg%></p>
+                                        <p><%=chats.mesg %></p>
                                     </div>
                                     <br/>
-                                   <% } %>
+                                <% } %>
 
-                                  <% }) %>
-                                 <% } %>
-                                 <% }) %>
+                                <% } %>
+                                <% }) %>
                 <% }else{ %>
                     <br/>
                <div class="alert-mess">
@@ -160,15 +152,13 @@
                     </div>
 
                     <% if(typeof chatuser !== 'undefined'){ %>
-                        <% chatuser.forEach(datauser => { %>
-                            <input type="text" name="tid" id="tid" value="<%=datauser.id%>" hidden/>
-                        <% }) %>
+                        
+                            <input type="text" name="tid" id="tid" value="<%=chatuser._id%>" hidden/>
+                       
                         <% } %>
 
                         <% if(typeof result !== 'undefined'){ %>
-                            <% result.forEach(userd => { %>
-                                <input type="text" name="frmid" id="frmid" value="<%=userd.id%>" hidden/>
-                            <% }) %>
+                                <input type="text" name="frmid" id="frmid" value="<%=result._id%>" hidden/>
                             <% } %>
 
                 <input class="textarea" name="mess" id="mess"/>

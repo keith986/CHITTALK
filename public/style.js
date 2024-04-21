@@ -66,10 +66,15 @@ $(document).ready(function(){
 
  });
 
-
-
-  
 }
+
+ //auto-refresh swiper's div
+ $(document).ready(function(){
+ setInterval(() => {
+   
+    console.log('reloaded');
+    }, 4000);
+ })
 
 
 

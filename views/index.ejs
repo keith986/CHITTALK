@@ -18,6 +18,7 @@
     function preventBack() { window.history.forward(); }
     setTimeout("preventBack()", 0);
     window.onunload = function (e) {e.preventDefault()};
+
 </script>
 
 <body>
@@ -43,32 +44,30 @@
         </div>
         <div class="navbar-nav">
             <% if(typeof result !== 'undefined'){ %>    
-                <% result.forEach(detailes => { %>    
-        <a href="/talk?d=<%= detailes.id %>" class="navbar-item" name="d"><i class="bi bi-chat-square-text-fill"></i></a>
+                
+        <a href="/talk?d=<%= result._id %>" class="navbar-item" name="d"><i class="bi bi-chat-square-text-fill"></i></a>
         <a href="#" class="navbar-item" id="gears-btn"><i class="bi bi-gear-wide-connected" id="gears"></i></a>
-              <% }) %>
+            
               <% } %>
          <div class="gear-menu">
             <% if(typeof result !== 'undefined'){ %>
-                <% result.forEach(detail => { %>
-            <img src="<%=detail.pic%>" class="profile-pic"/>
+            <img src="<%=result.images%>" class="profile-pic"/>
            
             <h3 class="user-statuses">
-               <%= detail.username %>
+               <%= result.username %>
             </h3>
 
-            <h3><%=detail.fname%> <%=detail.lname%></h3>
+            <h3><%=result.fname%> <%=result.lname%></h3>
             <div class="btns">
                 <a href="" class="user-button"><i class="bi-emoji-smile"></i> <span>Status</span></a>
                 <a href="" class="user-button"><i class="bi-pencil-fill"></i> <span>Edit</span></a>
             </div>
             <div class="user-logout">
                 <form action="/logout">
-                    <input type="text" class="userid" name="userid" value="<%=detail.id%>" hidden/>
+                    <input type="text" class="userid" name="userid" value="<%=result._id%>" hidden/>
                 <button class="logout-button"><i class="bi-box-arrow-in-right"></i> <span>Logout</span></button>
                 </form>
             </div>
-            <% }) %>
             <% } %>
          </div>   
         </div>
@@ -81,15 +80,15 @@
                 <div class="swiper">
                     <swiper-container>
                         <% if(typeof rst !== 'undefined'){%>
-                            <% rst.forEach(item => {%> 
+                         <% rst.forEach(rest => {%>
                         <swiper-slide>
                             <div class="post">
-                                <img src="<%=item.pic%>" class="post-img"/>
+                                <img src="<%=rest.images%>" class="post-img"/>
                                 <div class="post-body">
-                                    <img class="post-avatar" src="<%=item.pic%>" alt="avatar" />
+                                    <img class="post-avatar" src="<%=rest.images%>" alt="avatar"/>
                                     <div class="post-detail">
-                                        <h2 class="post-name"><%=item.username%>, <%=item.age%></h2>
-                                        <p class="post-author"><%=item.prelationship %></p>
+                                        <h2 class="post-name"><%=rest.username%>, <%=rest.age%></h2>
+                                        <p class="post-author"><%=rest.relationship %></p>
                                     </div>
                                     <div class="post-actions">
                                         <a class="post-like" href="javascript:void(0)">
@@ -102,7 +101,7 @@
                                 </div>
                             </div>
                         </swiper-slide>
-                          <% }) %>
+                       <% }) %>
                         <% } %>
         
                     </swiper-container>
