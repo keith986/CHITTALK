@@ -71,8 +71,18 @@ $(document).ready(function(){
  //auto-refresh swiper's div
  $(document).ready(function(){
  setInterval(() => {
-   
-    console.log('reloaded');
+    $.ajax({
+        url : '/fetch-mesg',
+        type: 'GET',
+        data: {
+            userid: $('#userid').val(),
+            chat: $('#chatuserid').val()
+        },
+        success:function(data){
+           $('.chatzone').html(data)
+            console.log(data);
+        }
+    })
     }, 4000);
  })
 

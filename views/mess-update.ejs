@@ -1,0 +1,25 @@
+
+    <% if(typeof talk !== 'undefined'){ %>
+       <% talk.forEach(chats => { %>
+           <% if(typeof chatuser !== 'undefined'){ %>
+                 
+                   <% if(chats.fromid == chatuser._id){  %>
+                       <br/>
+                       <div class="alert-mess">
+                           <p><%=chats.mesg %></p>
+                       </div>
+                       <br/>
+                   <% } %>
+                   
+                   <%if(chats.toid == chatuser._id){%>
+                       <br/>
+                       <div class="alert-user">
+                           <p><%=chats.mesg %></p>
+                       </div>
+                       <br/>
+                   <% } %>
+
+                   <% } %>
+                   <% }) %>
+   <% } %> 
+ 

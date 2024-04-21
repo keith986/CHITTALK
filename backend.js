@@ -12,6 +12,7 @@ dotenv.config();
 //database
 const mongodb = require('mongodb')
 const mongoose = require('mongoose')
+const { Console } = require('console')
 
 const url = process.env.dbURL
 
@@ -161,11 +162,12 @@ app.post('/talk', (req,res) => {
                      .then((results) => {
                 users.findById(chatid)
                      .then((resultses) => {
-                messages.find({$or : [{fromid : userid,toid: chatid},{fromid: chatid, toid: userid}]})
+                messages.find({$or : [{fromid : userid,toid: chatid},{fromid: chatid, toid: userid}]}).sort({createdAt : 1})
                         .then((resultsess) => {
                             console.log(resultsess)
                             res.render('talk', {chatuser:resultses, result, rst: results, talk: resultsess})
                         })
+                        .catch(err=> console.log(err));
                            console.log(resultses)
                         })
                      .catch((err) => console.log(err))
@@ -195,6 +197,26 @@ app.post('/message', (req,res) => {
             .catch(err => console.log('not sent' + err))
     })
 
+app.get('/fetch-mesg', (req,res) => {
+const userid = req.query.userid;
+const chatid = req.query.chat;
+console.log(userid)
+console.log(chatid)
+
+                users.findById(chatid)
+                        .then((resultses) => {
+                messages.find({$or : [{fromid : userid,toid: chatid},{fromid: chatid, toid: userid}]}).sort({createdAt : 1})
+                        .then((resultsess) => {
+                            console.log(resultsess)
+                            res.render('mess-update', {chatuser:resultses, talk: resultsess})
+                        })
+                        .catch(err => console.log(err));
+                           console.log(resultses)
+                        })
+                        .catch((err) => console.log(err))
+
+}) 
+ 
 app.get('/logout', (req,res) => {
     const userid = req.query.userid;
     req.session.destroy((err, result) => {

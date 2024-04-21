@@ -200,16 +200,18 @@ body {
   margin: 5px 0 10px;
 }
 
+.container h2{
+  size: 2rem;
+  font-weight: 600;
+  text-align: center;
+  color: #dda3b6;
+  margin: 5px 0 5px;
+}
+
 .swiper {
     width: 90%;
     height: 100%;
     margin-bottom: 30px;
-  }
-  
-  .swiper-scrollbar {
-    --swiper-scrollbar-bottom: 0;
-    --swiper-scrollbar-drag-bg-color: #dda3b6;
-    --swiper-scrollbar-size: 5px;
   }
 
   .post {
@@ -330,6 +332,7 @@ body {
   display: flex;
   justify-content: space-between;
   z-index: 1000;
+  padding-top: 20px;
 }
 
 .options{
@@ -415,11 +418,35 @@ max-width: 10%;
   width: 100%;
   margin-bottom: 20px;
   padding: 10px;
+  padding-bottom: 20px;
   min-height: 400px;
   border: 1px solid rgba(255, 255, 255, 0.3);
   border-left: none;
   border-right: none;
   overflow-y: auto;
+  overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+  background-color: #dda3b6;
+  width: 5px;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey; 
+  border-radius: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: red; 
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #b30000; 
 }
 
 .alert-mess{
@@ -449,6 +476,11 @@ max-width: 10%;
 }
 
 /* MEDIA QUERIES */
+@media screen and (min-width: 1201px){
+  .chatzone{
+    max-height: 401px;
+  }
+}
 
 @media (max-width: 1200px) { 
     .swiper {
@@ -472,6 +504,8 @@ max-width: 10%;
      .chatzone{
       height: 75vh;
       border-bottom: none;
+      overflow-y: auto;
+      overflow-x: hidden;
     }
 
     section{
@@ -484,6 +518,10 @@ max-width: 10%;
       height: 100%;
       width: 100%;
       padding: 0;
+    }
+
+    .container h2 {
+      display: none;
     }
 
     .attach{
@@ -526,9 +564,15 @@ max-width: 10%;
       padding: 0;
     }
 
+    .container h2 {
+      display: none;
+    }
+
     .chatzone{
       height: 75vh;
       border-bottom: none;
+      overflow-y: auto;
+      overflow-x: hidden;
     }
 
     .attach{
@@ -550,6 +594,10 @@ max-width: 10%;
         height: 100%;
         width: 100%;
         padding: 0;
+    }
+
+    .container h2 {
+      display: none;
     }
 
     .swiper {
@@ -574,8 +622,14 @@ max-width: 10%;
     }
 
     .chatzone{
-      height: 75vh;
+      height: 80vh;
       border-bottom: none;
+    }
+
+    .sender{
+      position: fixed;
+      bottom: 0;
+      width: 100%;
     }
 
     .attach{
