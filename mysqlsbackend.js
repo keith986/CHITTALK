@@ -1,3 +1,10 @@
+//here is the mysql backend
+//you can kick start this trought the terminal and edit the package json start
+//though its nit complete for my project
+//i prefer mongodb since my target was for larger data
+//thats it
+//have fun coding  ----------- haha ---------------------------
+
 const express = require('express')
 const morgan = require('morgan')
 const conn = require('./models/admin')
