@@ -12,7 +12,6 @@ dotenv.config();
 //database
 const mongodb = require('mongodb')
 const mongoose = require('mongoose')
-const { Console } = require('console')
 
 const url = process.env.dbURL
 
@@ -187,7 +186,8 @@ app.post('/message', (req,res) => {
         toid: toid,
         mesg: mess,
         dater: dater,
-        timer: timer
+        timer: timer,
+        new: 'new'
     })
 
     sendmesg.save()
@@ -214,8 +214,29 @@ console.log(chatid)
                            console.log(resultses)
                         })
                         .catch((err) => console.log(err))
-
 }) 
+
+app.get('/fetch-mesguser', (req,res) => {
+    const userid = req.query.userid;
+    const chatid = req.query.chat;
+
+    users.findById(userid)
+         .then((result) => {
+            if(result !== null){
+                users.find({_id : {$nin : result._id}})
+                     .then((results) => {
+                messages.find({$or : [{fromid : userid,toid: chatid},{fromid: chatid, toid: userid}]}).sort({createdAt : 1})
+                        .then((resultsess) => {
+                       res.render('messuser-update', {rst: results, talk : resultsess});
+                    })
+                    .catch(err => console.log(err));
+                    })
+                     .catch((err) => {console.log(err)})
+            }
+            console.log(result);
+         })
+         .catch(err => console.log(err)) 
+})
  
 app.get('/logout', (req,res) => {
     const userid = req.query.userid;

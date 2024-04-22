@@ -21,7 +21,11 @@ const mesgSchema = new Schema({
     timer: {
         type: String,
         require: true
-    }
+    },
+    new: {
+        type: String,
+        require: true
+    },
 }, {timestamps: true}) 
 
 const messages = mongoose.model('messages', mesgSchema);

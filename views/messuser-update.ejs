@@ -1,0 +1,30 @@
+<% if(typeof rst !== 'undefined'){ %>
+    <% rst.forEach((items) => { %>
+        <div class="post-body">
+            <img class="post-avatar" src="<%=items.images%>" alt="avatar"/>
+            <div class="post-detail">
+                <div class="post-name">
+                    <p><%=items.username%>, <%=items.age%></p>
+                </div>
+                <% if(typeof talk !== 'undefined'){%>
+                    <% talk.forEach(msg => {%>
+                <div class="alert-msg">
+                    <p class="post-author"><%=msg.new %></p>
+                </div>
+                 <% }) %>
+                <% } %>
+            </div>
+            <div class="post-actions">
+                <form method="post">
+                    <% if(typeof result !== 'undefined'){ %>
+                            <input type="text" id="userid" name="userid" value="<%=result._id%>" hidden/>
+                    <% } %>
+                    <input type="text" id="chat" name="chat" value="<%=items._id%>" hidden/>
+                <button type="submit" class="post-btn">
+                    <i class="bi bi-chat-dots-fill"></i>
+                </button>
+                </form>
+            </div>
+        </div>
+    <% }) %>
+<% } %>

@@ -79,14 +79,35 @@ $(document).ready(function(){
             chat: $('#chatuserid').val()
         },
         success:function(data){
-           $('.chatzone').html(data)
-            console.log(data);
+           $('.chatzone').html(data); 
         }
     })
-    }, 4000);
+    }, 1000);
  })
 
+//auto-refresh chat user's in messages div
+$(document).ready(function(){
+    setInterval(() => {
+       $.ajax({
+           url : '/fetch-mesguser',
+           type: 'GET',
+           data: {
+               userid: $('#userid').val(),
+               chat: $('#chatuserid').val()
+           },
+           success:function(data){
+              $('.mess-users').html(data); 
+           }
+       })
+       }, 1000);
+})
 
 
-     
+//alert msg box timeout
+$(document).ready(function(){
+    setTimeout(() => {
+        $('.alert-msg').fadeOut('animated');
+    }, 3000)
+})
+
    
