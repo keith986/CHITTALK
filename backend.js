@@ -5,6 +5,7 @@ const users = require('./models/users')
 const messages = require('./models/messages')
 const multer= require('multer')
 var path = require('path')
+var fs = require('fs')
 
 const dotenv = require('dotenv')
 dotenv.config();
@@ -52,15 +53,20 @@ app.use(express.json())
 //set upload folder
 var storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, 'photos/')
+        var dir = './photos';
+
+        if(!fs.existsSync(dir)){
+            fs.mkdirSync(dir);
+        }
+        cb(null, dir);
     },
     filename : (req, file, cb) => {
-        console.log(file)
         cb(null, Date.now() + path.extname(file.originalname))
     }
 });
 
 const uploads = multer({storage: storage});
+
 
 //listen to port
 app.listen('3000', () => {
@@ -227,7 +233,8 @@ app.get('/fetch-mesguser', (req,res) => {
 })
 
 
-app.post('/upload-image', uploads.array('glry', 12), (req,res) => {
+
+app.post('/upload-image', (req,res) => {
     const {glry} = req.body;
     console.log(glry);
 })
