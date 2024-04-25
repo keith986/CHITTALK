@@ -73,18 +73,16 @@ app.get('/', (req, res) => {
 
 app.post('/', (req,res) => {
 const {username, passcode} = req.body;
-
+console.log(username + passcode);
 users.findOne({
     username : username,
     passcode: passcode
              })
     .then((result) => {
-        if(result !== null){
-            console.log(result)
-        
+
+        if(result !== null){  
         users.find({_id : {$nin : result._id}})
              .then((results) => {
-                console.log('found' + results)
                 res.render('index', {result, rst:results})
              })
              .catch(err => console.log(err));
@@ -93,6 +91,7 @@ users.findOne({
             res.render('login', {errs});
             console.log(errs);
         }
+
     })
     .catch((err) =>{
         console.log(err);
@@ -125,11 +124,9 @@ const usersdata = users({
      
     usersdata.save()
              .then((result) => {
-                res.render('index');
-                console.log('User added Successfully ' + result);
+                res.render('login');
               })
              .catch((error) => console.log(error));
-
 })
 
 app.get('/talk', (req,res) => {
@@ -144,7 +141,6 @@ app.get('/talk', (req,res) => {
                      })
                      .catch((err) => {console.log(err)})
             }
-            console.log(result);
          })
          .catch(err => console.log(err))
 
@@ -163,17 +159,14 @@ app.post('/talk', (req,res) => {
                      .then((resultses) => {
                 messages.find({$or : [{fromid : userid,toid: chatid},{fromid: chatid, toid: userid}]}).sort({createdAt : 1})
                         .then((resultsess) => {
-                            console.log(resultsess)
                             res.render('talk', {chatuser:resultses, result, rst: results, talk: resultsess})
                         })
                         .catch(err=> console.log(err));
-                           console.log(resultses)
                         })
                      .catch((err) => console.log(err))
                      }) 
                      .catch((err) => {console.log(err)})
             }
-            console.log(result);
          })
          .catch(err => console.log(err))     
 })
@@ -192,7 +185,7 @@ app.post('/message', (req,res) => {
 
     sendmesg.save()
             .then((result) => {
-                console.log('sent' + result)
+                console.log('sent');
             })
             .catch(err => console.log('not sent' + err))
     })
@@ -200,42 +193,43 @@ app.post('/message', (req,res) => {
 app.get('/fetch-mesg', (req,res) => {
 const userid = req.query.userid;
 const chatid = req.query.chat;
-console.log(userid)
-console.log(chatid)
 
                 users.findById(chatid)
                         .then((resultses) => {
                 messages.find({$or : [{fromid : userid,toid: chatid},{fromid: chatid, toid: userid}]}).sort({createdAt : 1})
                         .then((resultsess) => {
-                            console.log(resultsess)
                             res.render('mess-update', {chatuser:resultses, talk: resultsess})
                         })
                         .catch(err => console.log(err));
-                           console.log(resultses)
                         })
                         .catch((err) => console.log(err))
 }) 
 
 app.get('/fetch-mesguser', (req,res) => {
-    const userid = req.query.userid;
-    const chatid = req.query.chat;
+    const userid = req.query.userids;
+    const chatid = req.query.chats;
 
     users.findById(userid)
          .then((result) => {
             if(result !== null){
                 users.find({_id : {$nin : result._id}})
                      .then((results) => {
-                messages.find({$or : [{fromid : userid,toid: chatid},{fromid: chatid, toid: userid}]}).sort({createdAt : 1})
+                messages.find({fromid : chatid,toid: userid})
                         .then((resultsess) => {
-                       res.render('messuser-update', {rst: results, talk : resultsess});
+                       res.render('messuser-update', {rst: results, result, tlk : resultsess});
                     })
                     .catch(err => console.log(err));
                     })
                      .catch((err) => {console.log(err)})
             }
-            console.log(result);
          })
          .catch(err => console.log(err)) 
+})
+
+
+app.post('/upload-image', uploads.array('glry', 12), (req,res) => {
+    const {glry} = req.body;
+    console.log(glry);
 })
  
 app.get('/logout', (req,res) => {
@@ -243,6 +237,5 @@ app.get('/logout', (req,res) => {
     req.session.destroy((err, result) => {
          if (err) throw err;
          res.redirect('/');
-         console.log(result);
                })
 })

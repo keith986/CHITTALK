@@ -4,19 +4,19 @@
            <% if(typeof chatuser !== 'undefined'){ %>
                  
                    <% if(chats.fromid == chatuser._id){  %>
-                       <br/>
-                       <div class="alert-mess">
+                    <br/>
+                    <div class="alert-mess">
                            <p><%=chats.mesg %></p>
                        </div>
-                       <br/>
+                    <br/>
                    <% } %>
-                   
+                   <br/>
                    <%if(chats.toid == chatuser._id){%>
-                       <br/>
+                    <br/>
                        <div class="alert-user">
                            <p><%=chats.mesg %></p>
                        </div>
-                       <br/>
+                    <br/>
                    <% } %>
 
                    <% } %>

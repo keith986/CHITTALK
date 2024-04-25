@@ -6,10 +6,12 @@
                 <div class="post-name">
                     <p><%=items.username%>, <%=items.age%></p>
                 </div>
-                <% if(typeof talk !== 'undefined'){%>
-                    <% talk.forEach(msg => {%>
-                <div class="alert-msg">
-                    <p class="post-author"><%=msg.new %></p>
+                <% if(typeof tlk !== 'undefined'){%>
+                    <% tlk.forEach(msg => {%>
+                    
+                    <div class="alert-msg">
+                    <p class="post-author"><%=msg.new %></>
+                   
                 </div>
                  <% }) %>
                 <% } %>
@@ -18,6 +20,7 @@
                 <form method="post">
                     <% if(typeof result !== 'undefined'){ %>
                             <input type="text" id="userid" name="userid" value="<%=result._id%>" hidden/>
+                            <input type="text" id="userid2" name="userid2" value="<%=result._id%>" hidden/>
                     <% } %>
                     <input type="text" id="chat" name="chat" value="<%=items._id%>" hidden/>
                 <button type="submit" class="post-btn">

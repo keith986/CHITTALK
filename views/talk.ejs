@@ -48,22 +48,17 @@
                         <% rst.forEach((items) => { %>
                             <div class="post-body">
                                 <img class="post-avatar" src="<%=items.images%>" alt="avatar"/>
+                                <input type="text" id="chat2" name="chat2" value="<%=items._id%>" hidden/>
                                 <div class="post-detail">
                                     <div class="post-name">
                                         <p><%=items.username%>, <%=items.age%></p>
                                     </div>
-                                    <% if(typeof talk !== 'undefined'){%>
-                                        <% talk.forEach(msg => {%>
-                                    <div class="alert-msg">
-                                        <p class="post-author"><%=msg.new %></p>
-                                    </div>
-                                     <% }) %>
-                                    <% } %>
                                 </div>
                                 <div class="post-actions">
                                     <form method="post">
                                         <% if(typeof result !== 'undefined'){ %>
                                                 <input type="text" id="userid" name="userid" value="<%=result._id%>" hidden/>
+                                                <input type="text" id="userid2" name="userid2" value="<%=result._id%>" hidden/>
                                         <% } %>
                                         <input type="text" id="chat" name="chat" value="<%=items._id%>" hidden/>
                                     <button type="submit" class="post-btn">
@@ -114,10 +109,14 @@
         
         
         <section>
-           <div class="container">
+           <div class="container" id="chat-container">
                 <h2>Chats</h2>
-                <% if(typeof chatuser !== 'undefined'){ %>            
+                <% if(typeof chatuser !== 'undefined'){ %>
+                    <div class="prof-det">
                         <img src="<%=chatuser.images%>" class="post-avatar"/>
+                        <h5><%=chatuser.username%></h5>
+                        <i class="bi bi-three-dots-vertical"></i>
+                    </div>            
                         <input type="text" id="chatuserid" name="chatuserid" value="<%=chatuser._id%>" hidden/>
                     <% } %>
                 <div class="chatzone">
@@ -153,10 +152,28 @@
                 <%}%>
                 </div>
                 <div class="senders">
-                   
+
+                    <div class="image-opt" id="image-opt">
+                        <div class="prof-det">
+                            <h3>Upload Images</h3>
+                            <i class="bi bi-x-lg" id="icn"></i>
+                        </div>
+                        <!-----------------Here is where all images uploaded goes in .gallery div------------------->
+                        <div class="gallery"></div>
+                        <div class="send-gallery">
+                        <form action="/upload-image" method="post">
+                            <input type="file" multiple="multiple" id="glry" name="glry" hidden/>
+                            <button type="submit" class="send"><i class="bi bi-send-arrow-up-fill"></i></button>
+                        </form>
+                        </div>
+                    </div>
+
+                    <div class="files-opt"></div>
+                    <div class="earbuds-opt"></div>
+
                     <div class="options">
                         <div class="options-icon">
-                        <i class="bi bi-image-fill"></i>
+                        <i class="bi bi-image-fill" id="gallery-upload"></i>
                         <i class="bi bi-files"></i>
                         <i class="bi bi-earbuds"></i>
                         </div>

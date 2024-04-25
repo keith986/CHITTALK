@@ -58,12 +58,9 @@ $(document).ready(function(){
        dataType: 'text',
        success:function(data){
            $('#mess').val('');
-           console.log('sent message' + data);
        }
-   });
- 
+    });
    $('#mess').val('');
-
  });
 
 }
@@ -82,7 +79,7 @@ $(document).ready(function(){
            $('.chatzone').html(data); 
         }
     })
-    }, 1000);
+    }, 100);
  })
 
 //auto-refresh chat user's in messages div
@@ -92,22 +89,54 @@ $(document).ready(function(){
            url : '/fetch-mesguser',
            type: 'GET',
            data: {
-               userid: $('#userid').val(),
-               chat: $('#chatuserid').val()
+               chats:$('#chat2').val(),
+               userids:$('#userid2').val(),
            },
            success:function(data){
-              $('.mess-users').html(data); 
+           $('.mess-users').html(data)
            }
        })
-       }, 1000);
+       }, 4000);
 })
 
 
-//alert msg box timeout
+
+//upload images
 $(document).ready(function(){
-    setTimeout(() => {
-        $('.alert-msg').fadeOut('animated');
-    }, 3000)
+    $('#gallery-upload').on('click',function(){
+        $('#glry').trigger('click');
+        return false;
+     })
+     $('#icn').on('click', () => {
+        $('.image-opt').fadeOut();
+        $('.gallery').empty();
+     })
 })
 
-   
+$(function() {
+    // Multiple images preview in browser
+    var imagesPreview = function(input, placeToInsertImagePreview) {
+
+        if (input.files) {
+            var filesAmount = input.files.length;
+
+            for (let i = 0; i < filesAmount; i++) {
+                var reader = new FileReader();
+
+                reader.onload = function(event) {
+                    $($.parseHTML('<img>')).attr('src', event.target.result).appendTo(placeToInsertImagePreview);
+                }
+
+                reader.readAsDataURL(input.files[i]);
+            }
+        }
+
+    };
+
+    $('#glry').on('change', function() {
+        imagesPreview(this, 'div.gallery');
+        $('.image-opt').fadeIn();
+        $('.options').fadeOut();
+    });
+});
+
