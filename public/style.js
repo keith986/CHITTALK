@@ -104,7 +104,7 @@ $(document).ready(function(){
 //upload images
 $(document).ready(function(){
     $('#gallery-upload').on('click',function(){
-        $('#glry').trigger('click');
+        $('#galery').trigger('click');
         return false;
      })
      $('#icn').on('click', () => {
@@ -133,10 +133,47 @@ $(function() {
 
     };
 
-    $('#glry').on('change', function() {
+    $('#galery').on('change', function() {
         imagesPreview(this, 'div.gallery');
         $('.image-opt').fadeIn();
         $('.options').fadeOut();
     });
-});
+    });
 
+function sendGallery(){
+    $(document).ready(function(){
+        var fd = new FormData();
+        var galery = $('#galery')[0].files[0];
+        fd.append('file',galery);
+
+        $.ajax({
+            url: '/upload-image',
+            type: 'post',
+            data: fd,
+            contentType: 'multipart/form-data',
+            processData: false,
+            contentType: false,
+            success:function(data){
+              console.log('Done!')
+            }
+        });
+
+        $.ajax({
+            url: '/upload-image',
+            type: 'post',
+            data: {
+            fromid:$('#uid').val(),
+            toid:$('#cid').val()
+            },
+            contentType: 'multipart/form-data',
+            processData: false, 
+            contentType: false,
+            success:function(data){
+              console.log('Done!')
+            }
+        });
+
+        $('#icn').trigger('click');
+
+    })
+}

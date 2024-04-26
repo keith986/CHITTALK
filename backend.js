@@ -3,9 +3,10 @@ const morgan = require('morgan')
 const session = require('express-session')
 const users = require('./models/users')
 const messages = require('./models/messages')
-const multer= require('multer')
-var path = require('path')
-var fs = require('fs')
+var cors = require('cors')
+var multer = require('multer');
+var fs = require('fs');
+var path = require('path');
 
 const dotenv = require('dotenv')
 dotenv.config();
@@ -35,6 +36,7 @@ app.use(session({
   cookie: { secure: true }
 }))
 
+app.use(cors())
 
 //register view engine
 app.set('view engine', 'ejs')
@@ -50,23 +52,23 @@ app.use(express.static('photos'))
 app.use(express.urlencoded({extended: false}))
 app.use(express.json())
 
-//set upload folder
+//images uploader with multer
 var storage = multer.diskStorage({
-    destination: (req, file, cb) => {
+    destination : (req, file, callback) => {
         var dir = './photos';
-
         if(!fs.existsSync(dir)){
             fs.mkdirSync(dir);
+        }else{
+            callback(null, dir);
         }
-        cb(null, dir);
     },
-    filename : (req, file, cb) => {
-        cb(null, Date.now() + path.extname(file.originalname))
+
+    filename : (req, file, callback) => {
+        callback(null, + Date.now() + path.extname(file.originalname));
     }
 });
 
-const uploads = multer({storage: storage});
-
+var uploads = multer({storage : storage});
 
 //listen to port
 app.listen('3000', () => {
@@ -74,10 +76,14 @@ app.listen('3000', () => {
 })
 
 app.get('/', (req, res) => {
-    res.render('login');
+    if(req.session.userin){
+    res.render('index');
+    }else{
+        res.render('login');
+    }
 })
 
-app.post('/', (req,res) => {
+app.post('/login', (req,res) => {
 const {username, passcode} = req.body;
 console.log(username + passcode);
 users.findOne({
@@ -130,13 +136,13 @@ const usersdata = users({
      
     usersdata.save()
              .then((result) => {
-                res.render('login');
+                res.redirect('/');
               })
              .catch((error) => console.log(error));
 })
 
 app.get('/talk', (req,res) => {
-    const userid = req.query.d;
+    const userid = req.query.d; 
 
     users.findById(userid)
          .then((result) => {
@@ -186,7 +192,8 @@ app.post('/message', (req,res) => {
         mesg: mess,
         dater: dater,
         timer: timer,
-        new: 'new'
+        new: 'new',
+        gallery: ''
     })
 
     sendmesg.save()
@@ -232,12 +239,31 @@ app.get('/fetch-mesguser', (req,res) => {
          .catch(err => console.log(err)) 
 })
 
+app.post('/upload-image', uploads.any(), (req,res) => {
+    console.log(req.files);
+    console.log(req.body);
 
+    var {fromid, toid} = req.body;
 
-app.post('/upload-image', (req,res) => {
-    const {glry} = req.body;
-    console.log(glry);
-})
+    if(req.files){
+        const sendmsg = messages({
+            fromid: fromid,
+            toid: toid,
+            dater: '.',
+            timer: '.',
+            new: 'new',
+            mesg: req.files.map(file => file.filename)
+        })
+    
+        sendmsg.save()
+                .then((result) => {
+                    console.log('Uploaded successfully' + result);
+                })
+                .catch(err => console.log('not sent' + err))
+    }else{
+        console.log('Not uploaded')
+    }
+})  
  
 app.get('/logout', (req,res) => {
     const userid = req.query.userid;
