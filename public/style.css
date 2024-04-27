@@ -343,6 +343,11 @@ body {
   color:rgba(7, 7, 6, 0.97);
 }
 
+.prof-det span {
+  font-style: italic;
+  color:#0a0406;
+}
+
 .prof-det i {
   color: lightgray;
   opacity: 0.5;

@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="style.css"/>
     <script src="style.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.min.js" integrity="sha512-YUkaLm+KJ5lQXDBdqBqk7EVhJAdxRnVdT2vtCzwPHSweCzyMgYV/tgGF4/dCyqtCC2eCphz0lRQgatGVdfR0ww==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-form@4.3.0/dist/jquery.form.min.js"></script>
     <meta http-equiv="refresh"/>
     <!---------------swiper js-->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-element-bundle.min.js"></script>
@@ -20,6 +21,7 @@
     function preventBack() { window.history.forward(); }
     setTimeout("preventBack()", 0);
     window.onunload = function (e) {e.preventDefault()};
+    window.onload = function (e) {e.preventDefault()};
 </script>
 
 <body>
@@ -129,14 +131,21 @@
                                 <% if(chats.fromid == chatuser._id){  %>
                                     <br/>
                                     <div class="alert-mess">
-                                        <% var meg = chats.mesg;  %>
-                                        <% var regex = '/.jpg|.png|.jpeg|.gif/ig';  %>
-                                        <% var res = regex.match(meg);  %>
-                                        <% if(res == true){  %>
-                                        <img src='<%=chats.mesg %>'>
-                                        <% }else{  %>
-                                        <p><%=chats.mesg %></p>
-                                        <% } %>
+                                      
+                                        <% if(chats.fileimg){  %>
+                                            <% var files= chats.fileimg; %>
+                                            <% if(files.length > 0) {%>
+                                                <% for(let i = 0; i < files.length; i++){%>
+                                                   
+                                                        <img src="<%=files[i]%>" style="max-width: 300px; max-height: 300px; border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 10px; padding: 5px;"/>
+                                                    
+                                                <% } %>
+                                            <% } %>
+                                                <%  } %>
+                                                <% if(chats.mesg !== chats.fileimg){  %>
+                                                <p><%=chats.mesg %></p>
+                                                <% } %>
+
                                     </div>
                                     <br/>
                                 <% } %>
@@ -144,14 +153,21 @@
                                 <%if(chats.toid == chatuser._id){%>
                                     <br/>
                                     <div class="alert-user">
-                                        <% var meg = chats.mesg;  %>
-                                        <% var regex = '/.jpg|.png|.jpeg|.gif/ig';  %>
-                                        <% var res = regex.match(meg);  %>
-                                        <% if(res == true){  %>
-                                        <img src='<%=chats.mesg %>'>
-                                        <% }else{  %>
-                                        <p><%=chats.mesg %></p>
-                                        <% } %>
+                                        
+                                        <% if(chats.fileimg){  %>
+                                            <% var files= chats.fileimg; %>
+                                            <% if(files.length > 0) {%>
+                                                <% for(let i = 0; i < files.length; i++){%>
+                                                   
+                                                        <img src="<%=files[i]%>" style="max-width: 300px; max-height: 300px; border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 10px; padding: 5px;"/>
+                                                    
+                                                     <% } %>
+                                            <% } %>
+                                                <%  } %>
+                                                <% if(chats.mesg !== chats.fileimg){  %>
+                                                <p><%=chats.mesg %></p>
+                                                <% } %>
+
                                     </div>
                                     <br/>
                                 <% } %>
@@ -171,23 +187,23 @@
                     <div class="image-opt" id="image-opt">
                         <div class="prof-det">
                             <h3>Upload Images</h3>
+                            <span>Max : 12</span>
                             <i class="bi bi-x-lg" id="icn"></i>
                         </div>
                         <!-----------------Here is where all images uploaded goes in .gallery div------------------->
                         <div class="gallery"></div>
                         <div class="send-gallery">
-                        
+                            <form id="fileforms" name="fileforms" method="post" action="/upload-image"  enctype="multipart/form-data">
                             <% if(typeof result !== 'undefined'){ %>
                                 <input type="text" id="uid" name="uid" value="<%=result._id%>" hidden/>
                             <% } %>
                             <% if(typeof chatuser !== 'undefined'){ %>
                                 <input type="text" id="cid" name="cid" value="<%=chatuser._id%>" hidden/>
                             <% } %>
-                            <form id="fileform" enctype="multipart/form-data">
                             <input type="file"  class="galery" id="galery" name="galery" multiple="multiple" hidden/>
-                          </form>
-                            <button type="button" class="send" onclick="sendGallery()"><i class="bi bi-send-arrow-up-fill"></i></button>
-                                              
+                            <button type="submit" class="send" onclick="sendGallery()"><i class="bi bi-send-arrow-up-fill"></i></button>
+                            </form>
+                            
                             </div>
                     </div>
 

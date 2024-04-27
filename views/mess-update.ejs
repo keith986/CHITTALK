@@ -1,12 +1,24 @@
 
     <% if(typeof talk !== 'undefined'){ %>
-       <% talk.forEach(chats => { %>
+ <% talk.forEach(chats => {%>
            <% if(typeof chatuser !== 'undefined'){ %>
                  
                    <% if(chats.fromid == chatuser._id){  %>
                     <br/>
                     <div class="alert-mess">
-                           <p><%=chats.mesg %></p>
+                        <% if(chats.fileimg){  %>
+                        <% var files= chats.fileimg; %>
+                        <% if(files.length > 0) {%>
+                            <% for(let i = 0; i < files.length; i++){%>
+                        
+                                    <img src="<%=files[i]%>" style="max-width: 100%; max-height: 300px; border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 10px; padding: 5px;"/>
+                              
+                                   <% } %>
+                        <% } %>
+                            <%  } %>
+                            <% if(chats.mesg !== chats.fileimg){  %>
+                            <p><%=chats.mesg %></p>
+                            <% } %>
                        </div>
                     <br/>
                    <% } %>
@@ -14,12 +26,24 @@
                    <%if(chats.toid == chatuser._id){%>
                     <br/>
                        <div class="alert-user">
-                           <p><%=chats.mesg %></p>
+                        <% if(chats.fileimg){  %>
+                            <% var files= chats.fileimg; %>
+                            <% if(files.length > 0) {%>
+                                <% for(let i = 0; i < files.length; i++){%>
+                                    
+                                        <img src="<%=files[i]%>" style="max-width: 100%; max-height: 300px; border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 10px; padding: 5px;"/>
+                                    
+                                      <% } %>
+                            <% } %>
+                                <%  } %>
+                                <% if(chats.mesg !== chats.fileimg){  %>
+                                <p><%=chats.mesg %></p>
+                                <% } %>
                        </div>
                     <br/>
-                   <% } %>
+            <% } %>
 
-                   <% } %>
-                   <% }) %>
-   <% } %> 
+            <% } %>
+            <% })  %>
+            <% } %> 
  

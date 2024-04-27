@@ -229,7 +229,8 @@ app.get('/fetch-mesguser', (req,res) => {
                      .then((results) => {
                 messages.find({fromid : chatid,toid: userid})
                         .then((resultsess) => {
-                       res.render('messuser-update', {rst: results, result, tlk : resultsess});
+
+                       res.render('messuser-update', {rst: results, result});
                     })
                     .catch(err => console.log(err));
                     })
@@ -239,30 +240,31 @@ app.get('/fetch-mesguser', (req,res) => {
          .catch(err => console.log(err)) 
 })
 
-app.post('/upload-image', uploads.any(), (req,res) => {
-    console.log(req.files);
+app.post('/upload-image', uploads.array('galery', 12), (req,res) => {
     console.log(req.body);
 
-    var {fromid, toid} = req.body;
+    var {uid, cid} = req.body;
+    var fileimg = req.files.map(file => file.filename);
 
     if(req.files){
         const sendmsg = messages({
-            fromid: fromid,
-            toid: toid,
+            fromid: uid,
+            toid: cid,
             dater: '.',
             timer: '.',
             new: 'new',
-            mesg: req.files.map(file => file.filename)
+            fileimg: fileimg
         })
-    
+         
         sendmsg.save()
                 .then((result) => {
                     console.log('Uploaded successfully' + result);
                 })
-                .catch(err => console.log('not sent' + err))
-    }else{
-        console.log('Not uploaded')
-    }
+                .catch(err => console.log('not sent' + err));
+            }else{
+                console.log('no upload');
+            }
+
 })  
  
 app.get('/logout', (req,res) => {

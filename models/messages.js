@@ -11,7 +11,7 @@ const mesgSchema = new Schema({
         require: true
     },
     mesg: {
-        type: String,
+        type: Array,
         require: true
     },
     dater: {
@@ -26,6 +26,9 @@ const mesgSchema = new Schema({
         type: String,
         require: true
     },
+    fileimg: {
+        type: Array,
+    }
 }, {timestamps: true}) 
 
 const messages = mongoose.model('messages', mesgSchema);

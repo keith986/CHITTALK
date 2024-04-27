@@ -6,15 +6,6 @@
                 <div class="post-name">
                     <p><%=items.username%>, <%=items.age%></p>
                 </div>
-                <% if(typeof tlk !== 'undefined'){%>
-                    <% tlk.forEach(msg => {%>
-                    
-                    <div class="alert-msg">
-                    <p class="post-author"><%=msg.new %></>
-                   
-                </div>
-                 <% }) %>
-                <% } %>
             </div>
             <div class="post-actions">
                 <form method="post">

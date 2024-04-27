@@ -140,40 +140,10 @@ $(function() {
     });
     });
 
-function sendGallery(){
-    $(document).ready(function(){
-        var fd = new FormData();
-        var galery = $('#galery')[0].files[0];
-        fd.append('file',galery);
+    function sendGallery(){
+        $(document).ready(function(){
+           $('#icn').trigger('click');
+         });
+        window.history.go(0);
+    }
 
-        $.ajax({
-            url: '/upload-image',
-            type: 'post',
-            data: fd,
-            contentType: 'multipart/form-data',
-            processData: false,
-            contentType: false,
-            success:function(data){
-              console.log('Done!')
-            }
-        });
-
-        $.ajax({
-            url: '/upload-image',
-            type: 'post',
-            data: {
-            fromid:$('#uid').val(),
-            toid:$('#cid').val()
-            },
-            contentType: 'multipart/form-data',
-            processData: false, 
-            contentType: false,
-            success:function(data){
-              console.log('Done!')
-            }
-        });
-
-        $('#icn').trigger('click');
-
-    })
-}
