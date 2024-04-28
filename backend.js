@@ -239,7 +239,7 @@ app.get('/fetch-mesguser', (req,res) => {
             }
          })
          .catch(err => console.log(err)) 
-})
+})   
 
 app.post('/upload-image', uploads.array('galery'), (req,res) => {
     console.log(req.body);
