@@ -22,7 +22,7 @@ $(document).ready(function(){
         }, 500)
     })
 })
-
+ 
 function sendMessage(){
 
 const dater = new Date();
@@ -99,8 +99,6 @@ $(document).ready(function(){
        }, 4000);
 })
 
-
-
 //upload images
 $(document).ready(function(){
     $('#gallery-upload').on('click',function(){
@@ -144,6 +142,7 @@ $(function() {
         $(document).ready(function(){
            $('#icn').trigger('click');
          });
-        window.history.go(0);
     }
+ 
 
+     

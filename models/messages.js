@@ -28,7 +28,7 @@ const mesgSchema = new Schema({
     },
     fileimg: {
         type: Array,
-    }
+    },
 }, {timestamps: true}) 
 
 const messages = mongoose.model('messages', mesgSchema);

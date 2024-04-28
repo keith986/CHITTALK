@@ -187,7 +187,6 @@
                     <div class="image-opt" id="image-opt">
                         <div class="prof-det">
                             <h3>Upload Images</h3>
-                            <span>Max : 12</span>
                             <i class="bi bi-x-lg" id="icn"></i>
                         </div>
                         <!-----------------Here is where all images uploaded goes in .gallery div------------------->
@@ -200,21 +199,16 @@
                             <% if(typeof chatuser !== 'undefined'){ %>
                                 <input type="text" id="cid" name="cid" value="<%=chatuser._id%>" hidden/>
                             <% } %>
-                            <input type="file"  class="galery" id="galery" name="galery" multiple="multiple" hidden/>
+                            <input type="file"  class="galery" id="galery" accept=".jpeg,.png,.jpg,.gif" name="galery" multiple="multiple" hidden/>
                             <button type="submit" class="send" onclick="sendGallery()"><i class="bi bi-send-arrow-up-fill"></i></button>
                             </form>
                             
                             </div>
                     </div>
 
-                    <div class="files-opt"></div>
-                    <div class="earbuds-opt"></div>
-
                     <div class="options">
                         <div class="options-icon">
                         <i class="bi bi-image-fill" id="gallery-upload"></i>
-                        <i class="bi bi-files"></i>
-                        <i class="bi bi-earbuds"></i>
                         </div>
                     </div>
 

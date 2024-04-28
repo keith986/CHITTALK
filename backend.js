@@ -68,6 +68,7 @@ var storage = multer.diskStorage({
     }
 });
 
+
 var uploads = multer({storage : storage});
 
 //listen to port
@@ -240,7 +241,7 @@ app.get('/fetch-mesguser', (req,res) => {
          .catch(err => console.log(err)) 
 })
 
-app.post('/upload-image', uploads.array('galery', 12), (req,res) => {
+app.post('/upload-image', uploads.array('galery'), (req,res) => {
     console.log(req.body);
 
     var {uid, cid} = req.body;
@@ -266,7 +267,35 @@ app.post('/upload-image', uploads.array('galery', 12), (req,res) => {
             }
 
 })  
- 
+
+
+app.post('/upload-files', uploads.array('galery-file'), (req,res) => {
+    console.log(req.body);
+
+    var {uid, cid} = req.body;
+    var fileimg = req.files.map(file => file.filename);
+
+    if(req.files){
+        const sendmsg = messages({
+            fromid: uid,
+            toid: cid,
+            dater: '.',
+            timer: '.',
+            new: 'new',
+            fileimg: fileimg
+        })
+         
+        sendmsg.save()
+                .then((result) => {
+                    console.log('Uploaded successfully' + result);
+                })
+                .catch(err => console.log('not sent' + err));
+            }else{
+                console.log('no upload');
+            }
+
+})   
+
 app.get('/logout', (req,res) => {
     const userid = req.query.userid;
     req.session.destroy((err, result) => {

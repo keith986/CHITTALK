@@ -332,20 +332,12 @@ body {
   display: flex;
   justify-content: space-between;
   padding: 10px;
-}
-
-.prof-det{
   font-size: 20px;
   color: #fff;
 }
 
 .prof-det h3{
   color:rgba(7, 7, 6, 0.97);
-}
-
-.prof-det span {
-  font-style: italic;
-  color:#0a0406;
 }
 
 .prof-det i {
@@ -371,6 +363,7 @@ body {
   opacity: 1;
 }
 
+
 .sender{
   display: flex;
   justify-content: space-between;
@@ -389,7 +382,7 @@ body {
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   bottom: 10%;
-  width: 100%;
+  width: 10%;
 }
 
 .options-icon{
@@ -426,6 +419,42 @@ cursor: pointer;
   max-height: 100%;
   margin-top: 10px;
   background-color: rgba(18, 18, 18, 0.019);
+}
+
+.files-opt{
+  z-index: 1000;
+  position: absolute;
+  padding: 5px;
+  background: rgba(243, 238, 238, 0.775);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  top: 0;
+  bottom: 10%;
+  height: 100%;
+  width: 100%;
+  border-radius: 10px;
+  display: none;
+}
+
+.gallerys{
+  display: flex;
+  justify-content: space-evenly;
+  overflow-x: auto;
+  max-height: 100%;
+  margin-top: 10px;
+  background-color: rgba(18, 18, 18, 0.019);
+}
+
+.gallerys > object{
+  background-image: url('PDF.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  max-width: 200px;
+  max-height: 200px;
+  margin: 5px;
+  border-radius: 5px;
 }
 
 .gallery > img{
