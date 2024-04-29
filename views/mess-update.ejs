@@ -16,7 +16,12 @@
                                    <% } %>
                         <% } %>
                             <%  } %>
-                            <% if(chats.mesg !== chats.fileimg){  %>
+                        
+                        <% if(chats.audiofile){ %>
+                            <audio class="audios" src="<%=chats.audiofile%>" controls></audio>
+                        <% } %>    
+
+                        <% if(chats.mesg !== chats.fileimg && chats.mesg !== chats.audiofile){  %>
                             <p><%=chats.mesg %></p>
                             <% } %>
                        </div>
@@ -36,9 +41,16 @@
                                       <% } %>
                             <% } %>
                                 <%  } %>
-                                <% if(chats.mesg !== chats.fileimg){  %>
-                                <p><%=chats.mesg %></p>
-                                <% } %>
+
+                                 
+                        <% if(chats.audiofile){ %>
+                            <audio class="audios" src="<%=chats.audiofile%>" controls></audio>
+                        <% } %> 
+
+                        <% if(chats.mesg !== chats.fileimg && chats.mesg !== chats.audiofile){  %>
+                            <p><%=chats.mesg %></p>
+                            <% } %>
+                            
                        </div>
                     <br/>
             <% } %>

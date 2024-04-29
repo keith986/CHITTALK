@@ -37,11 +37,12 @@
     }
 
     recoder.onstop = e => {
-        const blob = new Blob(chunks, {type: 'audio/ogg; codecs=opus'});
+        const blob = new Blob(chunks, {type: 'audio/mp3; codecs=opus'});
         chunks = [];
         const audioURL = window.URL.createObjectURL(blob);
         $(document).ready(function(){
             $('.playback').attr('src', audioURL);
+            $('#playbac').val(audioURL);
         })
     }
 

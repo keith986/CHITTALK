@@ -29,6 +29,9 @@ const mesgSchema = new Schema({
     fileimg: {
         type: Array,
     },
+    audiofile: {
+        type: String,
+    },
 }, {timestamps: true}) 
 
 const messages = mongoose.model('messages', mesgSchema);

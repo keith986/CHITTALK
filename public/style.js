@@ -79,7 +79,7 @@ $(document).ready(function(){
            $('.chatzone').html(data); 
         }
     })
-    }, 100);
+    }, 500);
  })
 
 //auto-refresh chat user's in messages div
@@ -156,3 +156,23 @@ $(document).ready(function(){
         $('.call-center').fadeOut();
     })
 })
+
+function sendAudio(){
+    $(document).ready(function(){
+        $.ajax({
+            url: '/upload-audio',
+            type: 'post',
+            data: {
+                usid: $('#usid').val(),
+                chid: $('#chid').val(),
+                playback: $('#playbac').val(),
+            },
+            dataType: 'text',
+            success:function(data){
+             console.log('success');
+            }
+        })
+
+        $('#icns').trigger('click');
+    })
+}

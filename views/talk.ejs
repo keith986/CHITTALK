@@ -132,12 +132,20 @@
                                 <i class="bi bi-mic-fill"></i>
                             </button>
                         </div>
+                       
                         <div class="audio-rec">
                             <audio class="playback" controls autoplay></audio>
+                            <input type="text" id="playbac" name="playback" hidden/>
                         </div>
+                        <% if(typeof result !== 'undefined'){ %>
+                            <input type="text" id="usid" name="usid" value="<%=result._id%>" hidden/>
+                        <% } %>
+                        <% if(typeof chatuser !== 'undefined'){ %>
+                            <input type="text" id="chid" name="chid" value="<%=chatuser._id%>" hidden/>
+                        <% } %>
                         <button type="submit" class="send" onclick="sendAudio()"><i class="bi bi-send-arrow-up-fill"></i></button>
                     </div>  
-
+                    
                         <input type="text" id="chatuserid" name="chatuserid" value="<%=chatuser._id%>" hidden/>
                     <% } %>
 
@@ -161,7 +169,13 @@
                                                 <% } %>
                                             <% } %>
                                                 <%  } %>
-                                                <% if(chats.mesg !== chats.fileimg){  %>
+
+                                                <% if(chats.audiofile){ %>
+                                                    <audio class="audios" src="<%=chats.audiofile%>" controls></audio>
+                                                <% } %>    
+
+
+                                                <% if(chats.mesg !== chats.fileimg && chats.mesg !== chats.audiofile){  %>
                                                 <p><%=chats.mesg %></p>
                                                 <% } %>
 
@@ -183,9 +197,14 @@
                                                 <% } %>
                                             <% } %>
                                                 <%  } %>
-                                                <% if(chats.mesg !== chats.fileimg){  %>
-                                                <p><%=chats.mesg %></p>
-                                                <% } %>
+
+                                                <% if(chats.audiofile){ %>
+                                                    <audio class="audios" src="<%=chats.audiofile%>" controls></audio>
+                                                <% } %>    
+
+                                                <% if(chats.mesg !== chats.fileimg && chats.mesg !== chats.audiofile){  %>
+                                                    <p><%=chats.mesg %></p>
+                                                    <% } %>
 
                                     </div>
                                     <br/>

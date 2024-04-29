@@ -46,7 +46,7 @@ app.use(morgan('dev'))
 
 //use public data
 app.use(express.static('public'))
-app.use(express.static('photos'))
+app.use(express.static('uploads'))
 
 //url extend url
 app.use(express.urlencoded({extended: false}))
@@ -55,9 +55,9 @@ app.use(express.json())
 //images uploader with multer
 var storage = multer.diskStorage({
     destination : (req, file, callback) => {
-        var dir = './photos';
+        var dir = './uploads';
         if(!fs.existsSync(dir)){
-            fs.mkdirSync(dir);
+            fs.mkdirSync(dir); 
         }else{
             callback(null, dir);
         }
@@ -259,7 +259,7 @@ app.post('/upload-image', uploads.array('galery'), (req,res) => {
          
         sendmsg.save()
                 .then((result) => {
-                    console.log('Uploaded successfully' + result);
+                    console.log('Uploaded Images successfully' + result);
                 })
                 .catch(err => console.log('not sent' + err));
             }else{
@@ -269,10 +269,28 @@ app.post('/upload-image', uploads.array('galery'), (req,res) => {
 })  
 
 
-app.post('/upload-audio', uploads.any(), (req,res) => {
+app.post('/upload-audio', (req,res) => {
     console.log(req.body);
-})   
+    var {usid, chid, playback} = req.body;
 
+    
+        const sendmsg = messages({
+            fromid: usid,
+            toid: chid,
+            dater: '.',
+            timer: '.',
+            new: 'new',
+            audiofile: playback
+        })
+         
+        sendmsg.save()
+                .then((result) => {
+                    console.log('Uploaded Audio successfully' + result);
+                })
+                .catch(err => console.log('not sent' + err));
+          
+})   
+ 
 app.get('/logout', (req,res) => {
     const userid = req.query.userid;
     req.session.destroy((err, result) => {

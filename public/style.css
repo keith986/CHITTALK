@@ -509,6 +509,13 @@ cursor: pointer;
   background-color: rgba(18, 18, 18, 0.019);
 }
 
+.audios{
+  border-radius: 20px;
+  background: green;
+  padding: 5px;
+  max-width: 100%;
+}
+
 .gallerys > object{
   background-image: url('PDF.png');
   background-size: cover;
