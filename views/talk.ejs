@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <link rel="stylesheet" href="style.css"/>
+    <script src="recorder.js"></script>
     <script src="style.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.3.0/jquery.form.min.js" integrity="sha512-YUkaLm+KJ5lQXDBdqBqk7EVhJAdxRnVdT2vtCzwPHSweCzyMgYV/tgGF4/dCyqtCC2eCphz0lRQgatGVdfR0ww==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery-form@4.3.0/dist/jquery.form.min.js"></script>
@@ -118,10 +119,24 @@
                     <div class="prof-det">
                         <img src="<%=chatuser.images%>" class="post-avatar"/>
                         <h5><%=chatuser.username%></h5>
-                        <i class="bi bi-telephone-fill"></i>
-                    </div>            
+                        <i class="bi bi-mic-fill" id="telephone"></i>
+                    </div> 
+                  
+                    <div class="call-center">
+                        <div class="mic-icons">
+                            <button type="button" class="mic-toggle" onClick="startRec()">
+                                <i class="bi bi-mic-fill"></i>
+                            </button>
+                        </div>
+                        <div class="audio-rec">
+                            <audio class="playback" controls autoplay></audio>
+                        </div>
+                        <button type="submit" class="send" onclick="sendAudio()"><i class="bi bi-send-arrow-up-fill"></i></button>
+                    </div>  
+
                         <input type="text" id="chatuserid" name="chatuserid" value="<%=chatuser._id%>" hidden/>
                     <% } %>
+
                 <div class="chatzone">
                  <!---chatzone--------->
                  <% if(typeof talk !== 'undefined'){ %>
@@ -159,9 +174,9 @@
                                             <% if(files.length > 0) {%>
                                                 <% for(let i = 0; i < files.length; i++){%>
                                                    
-                                                        <img src="<%=files[i]%>" style="max-width: 300px; max-height: 300px; border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 10px; padding: 5px;"/>
+                                            <img src="<%=files[i]%>" style="max-width: 300px; max-height: 300px; border: 1px solid rgba(255, 255, 255, 0.3); border-radius: 10px; padding: 5px;"/>
                                                     
-                                                     <% } %>
+                                                <% } %>
                                             <% } %>
                                                 <%  } %>
                                                 <% if(chats.mesg !== chats.fileimg){  %>

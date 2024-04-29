@@ -142,7 +142,13 @@ $(function() {
         $(document).ready(function(){
            $('#icn').trigger('click');
          });
-    }
- 
+    };
 
-     
+//record calls
+    $(document).ready(function(){
+        $('#telephone').on('click', function(){
+            $('.call-center').fadeIn();
+        })
+    })
+
+   

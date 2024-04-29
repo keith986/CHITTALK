@@ -18,7 +18,7 @@ const mongoose = require('mongoose')
 const url = process.env.dbURL
 
 mongoose.connect(url)
-        .then((result) => {
+        .then((result) => {  
             console.log('Connected' + result)
         })
         .catch((err) => {
