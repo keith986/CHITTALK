@@ -151,4 +151,8 @@ $(function() {
         })
     })
 
-   
+$(document).ready(function(){
+    $('#icns').on('click', function(){
+        $('.call-center').fadeOut();
+    })
+})

@@ -349,13 +349,25 @@ body {
 
 #icn{
   color: red;
-  opacity: 0.7;
+  opacity: 0.8;
   cursor: pointer;
-  font-size: 20px;
+  font-size: 25px;
   margin: 5px;
 }
 
 #icn:hover{
+  opacity: 1;
+}
+
+#icns{
+  color: red;
+  opacity: 0.8;
+  cursor: pointer;
+  font-size: 25px;
+  margin: 5px;
+}
+
+#icns:hover{
   opacity: 1;
 }
 
