@@ -134,8 +134,13 @@
                         </div>
                        
                         <div class="audio-rec">
+                           
                             <audio class="playback" controls autoplay></audio>
+                            
                             <input type="text" id="playbac" name="playback" hidden/>
+                            <form enctype="multipart/form-data">
+                            <input type="file" id="playaudio" name="playaudio" multiple hidden/>
+                            </form>
                         </div>
                         <% if(typeof result !== 'undefined'){ %>
                             <input type="text" id="usid" name="usid" value="<%=result._id%>" hidden/>

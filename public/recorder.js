@@ -44,13 +44,18 @@
             $('.playback').attr('src', audioURL);
             $('#playbac').val(audioURL);
         })
+
+        let file = new File([blob], audioURL, {type: 'audio/mp3', lastModified: new Date()}, 'utf-8'); 
+        const dataTransfer = new DataTransfer();
+        dataTransfer.items.add(file);//your file(s) reference(s)
+       document.getElementById('playaudio').files = dataTransfer.files;
     }
 
     can_record = true;
 
-   }
-
-
+   } 
+   
+  
  function ToggleMic(){
     if(!can_record) return ;
     is_recording = !is_recording;
@@ -73,6 +78,4 @@
  }
 
 
-
-
-     
+ 

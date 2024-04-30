@@ -269,8 +269,10 @@ app.post('/upload-image', uploads.array('galery'), (req,res) => {
 })  
 
 
-app.post('/upload-audio', (req,res) => {
+app.post('/upload-audio', uploads.any(), (req,res) => {
     console.log(req.body);
+    console.log(req.file);
+    
     var {usid, chid, playback} = req.body;
 
     

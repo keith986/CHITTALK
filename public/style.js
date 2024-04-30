@@ -159,20 +159,22 @@ $(document).ready(function(){
 
 function sendAudio(){
     $(document).ready(function(){
+        var fds = new FormData(); 
+        var files = $('#playaudio')[0].files[0]; 
+        fds.append('file', files); 
+
         $.ajax({
             url: '/upload-audio',
             type: 'post',
-            data: {
-                usid: $('#usid').val(),
-                chid: $('#chid').val(),
-                playback: $('#playbac').val(),
-            },
-            dataType: 'text',
+            data: fds,
+            contentType: 'Multipart/form-data',
             success:function(data){
-             console.log('success');
+                console.log(data);
             }
-        })
+        });
 
         $('#icns').trigger('click');
     })
 }
+
+     
