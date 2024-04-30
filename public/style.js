@@ -176,10 +176,10 @@ function sendAudios(){
 
         $('#icns').trigger('click');
  
-    });
+    }); 
 
     let fil = document.getElementById('playbac').value;
-
+   
     const formData = new FormData();
     formData.append('file', fil);
      return fetch('/upload-audio', {

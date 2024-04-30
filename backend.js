@@ -48,6 +48,7 @@ app.use(morgan('dev'))
 //use public data
 app.use(express.static('public'))
 app.use(express.static('uploads'))
+app.use(express.static('voices'))
 
 //url extend url
 app.use(express.urlencoded({extended: false}))
@@ -275,12 +276,17 @@ app.post('/upload-audio', uploads.any(), (req,res) => {
 
     var {usid, chid, playback} = req.body;
  
+    var randm = '99999999999';
+    var generate = Math.floor(Math.random() * randm);
+
+    var filnme = `${generate}.mp3`;
+
     var au_dio = playback;
     const buffer = Buffer.from(
         au_dio.split('base64,')[1],  // only use encoded data after "base64,"
         'base64'
       );
-      fs.writeFileSync('au_dio.mp3', buffer);
+      fs.writeFileSync(`./voices/${filnme}`, buffer);
       console.log(`wrote ${buffer.byteLength.toLocaleString()} bytes to file.`);
 
         const sendmsg = messages({
@@ -289,15 +295,15 @@ app.post('/upload-audio', uploads.any(), (req,res) => {
             dater: '.',
             timer: '.',
             new: 'new',
-            audiofile: playback
-        })
+            audiofile: filnme
+        }) 
              
         sendmsg.save()
                 .then((result) => {
                     console.log('Uploaded Audio successfully' + result);
                 })
                 .catch(err => console.log('not sent' + err));
-          
+
 })     
  
 app.get('/logout', (req,res) => {
