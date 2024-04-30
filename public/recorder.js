@@ -42,20 +42,27 @@
         const audioURL = window.URL.createObjectURL(blob);
         $(document).ready(function(){
             $('.playback').attr('src', audioURL);
-            $('#playbac').val(audioURL);
-        })
+        });
+        
+        var reader = new window.FileReader();
+        reader.readAsDataURL(blob);
+        var base64data;
+        reader.onloadend = function () {
+        base64data = reader.result;
+        console.log(base64data);
 
-        let file = new File([blob], audioURL, {type: 'audio/mp3', lastModified: new Date()}, 'utf-8'); 
-        const dataTransfer = new DataTransfer();
-        dataTransfer.items.add(file);//your file(s) reference(s)
-       document.getElementById('playaudio').files = dataTransfer.files;
+        const fil = "data:audio/webm;base64," + base64data;
+
+        $(document).ready(function(){
+            $('#playbac').val(fil);
+        });
+        
+        }
     }
-
     can_record = true;
-
    } 
    
-  
+
  function ToggleMic(){
     if(!can_record) return ;
     is_recording = !is_recording;

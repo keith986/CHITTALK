@@ -138,9 +138,9 @@
                             <audio class="playback" controls autoplay></audio>
                             
                             <input type="text" id="playbac" name="playback" hidden/>
-                            <form enctype="multipart/form-data">
+                          
                             <input type="file" id="playaudio" name="playaudio" multiple hidden/>
-                            </form>
+                            
                         </div>
                         <% if(typeof result !== 'undefined'){ %>
                             <input type="text" id="usid" name="usid" value="<%=result._id%>" hidden/>
@@ -148,7 +148,8 @@
                         <% if(typeof chatuser !== 'undefined'){ %>
                             <input type="text" id="chid" name="chid" value="<%=chatuser._id%>" hidden/>
                         <% } %>
-                        <button type="submit" class="send" onclick="sendAudio()"><i class="bi bi-send-arrow-up-fill"></i></button>
+                        <button type="submit" class="send" onclick="sendAudios()"><i class="bi bi-send-arrow-up-fill"></i></button>
+                         
                     </div>  
                     
                         <input type="text" id="chatuserid" name="chatuserid" value="<%=chatuser._id%>" hidden/>

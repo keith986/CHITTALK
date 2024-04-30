@@ -7,6 +7,7 @@ var cors = require('cors')
 var multer = require('multer');
 var fs = require('fs');
 var path = require('path');
+const axios = require('axios');
 
 const dotenv = require('dotenv')
 dotenv.config();
@@ -271,11 +272,17 @@ app.post('/upload-image', uploads.array('galery'), (req,res) => {
 
 app.post('/upload-audio', uploads.any(), (req,res) => {
     console.log(req.body);
-    console.log(req.file);
-    
-    var {usid, chid, playback} = req.body;
 
-    
+    var {usid, chid, playback} = req.body;
+ 
+    var au_dio = playback;
+    const buffer = Buffer.from(
+        au_dio.split('base64,')[1],  // only use encoded data after "base64,"
+        'base64'
+      );
+      fs.writeFileSync('au_dio.mp3', buffer);
+      console.log(`wrote ${buffer.byteLength.toLocaleString()} bytes to file.`);
+
         const sendmsg = messages({
             fromid: usid,
             toid: chid,
@@ -284,14 +291,14 @@ app.post('/upload-audio', uploads.any(), (req,res) => {
             new: 'new',
             audiofile: playback
         })
-         
+             
         sendmsg.save()
                 .then((result) => {
                     console.log('Uploaded Audio successfully' + result);
                 })
                 .catch(err => console.log('not sent' + err));
           
-})   
+})     
  
 app.get('/logout', (req,res) => {
     const userid = req.query.userid;

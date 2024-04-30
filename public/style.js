@@ -157,24 +157,37 @@ $(document).ready(function(){
     })
 })
 
-function sendAudio(){
+function sendAudios(){
     $(document).ready(function(){
-        var fds = new FormData(); 
-        var files = $('#playaudio')[0].files[0]; 
-        fds.append('file', files); 
 
         $.ajax({
             url: '/upload-audio',
             type: 'post',
-            data: fds,
-            contentType: 'Multipart/form-data',
+            data: {
+                usid: $('#usid').val(),
+                chid: $('#chid').val(),
+                playback: $('#playbac').val(),
+            },
+            dataType: 'text',
             success:function(data){
                 console.log(data);
             }
         });
 
         $('#icns').trigger('click');
-    })
+ 
+    });
+
+    let fil = document.getElementById('playbac').value;
+
+    const formData = new FormData();
+    formData.append('file', fil);
+     return fetch('/upload-audio', {
+         method: 'POST',
+         body: formData
+     }).then(res => res.json());
 }
 
+
+ 
      
