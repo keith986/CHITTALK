@@ -77,7 +77,7 @@
             </div>
         </div>
 
-        <h1>I KNOW YOU</h1>
+        <h1><img src='chitTalklogo.png' class="logo-pic"></h1>
 
         <div class="navbar-nav">
             <% if(typeof result !== 'undefined'){ %>         
@@ -135,20 +135,21 @@
                        
                         <div class="audio-rec">
                            
-                            <audio class="playback" controls autoplay></audio>
-                            
-                            <input type="text" id="playbac" name="playback" hidden/>
+                            <div class="hide-audio">
+                                <audio class="playback" controls autoplay></audio>
+                                <input type="text" id="playbacse" name="playback" hidden/>
+                            </div>
+                            <% if(typeof result !== 'undefined'){ %>
+                                <input type="text" id="usid" name="usid" value="<%=result._id%>" hidden/>
+                                <input type="text" id="useid" name="useid" value="<%=result._id%>" hidden/>
+                            <% } %>
+                            <% if(typeof chatuser !== 'undefined'){ %>
+                                <input type="text" id="chid" name="chid" value="<%=chatuser._id%>" hidden/>
+                                <input type="text" id="chatuseid" name="chatuseid" value="<%=chatuser._id%>" hidden/>
+                            <% } %>
+                            <button type="submit" class="send" onclick="sendAudios()"><i class="bi bi-send-arrow-up-fill"></i></button>
                           
-                            <input type="file" id="playaudio" name="playaudio" multiple hidden/>
-                            
                         </div>
-                        <% if(typeof result !== 'undefined'){ %>
-                            <input type="text" id="usid" name="usid" value="<%=result._id%>" hidden/>
-                        <% } %>
-                        <% if(typeof chatuser !== 'undefined'){ %>
-                            <input type="text" id="chid" name="chid" value="<%=chatuser._id%>" hidden/>
-                        <% } %>
-                        <button type="submit" class="send" onclick="sendAudios()"><i class="bi bi-send-arrow-up-fill"></i></button>
                          
                     </div>  
                     
@@ -163,7 +164,7 @@
                               
                                 <% if(chats.fromid == chatuser._id){  %>
                                     <br/>
-                                    <div class="alert-mess">
+                                    <div class="alert-mess" id="scrol">
                                       
                                         <% if(chats.fileimg){  %>
                                             <% var files= chats.fileimg; %>
@@ -177,8 +178,10 @@
                                                 <%  } %>
 
                                                 <% if(chats.audiofile){ %>
-                                                    <audio class="audios" src="<%=chats.audiofile%>" controls></audio>
-                                                <% } %>    
+                                                    <video class="audios" controls name="media">
+                                                        <source src="<%=chats.audiofile%>" type="audio/mpeg">
+                                                   </video>
+                                                <% } %>  
 
 
                                                 <% if(chats.mesg !== chats.fileimg && chats.mesg !== chats.audiofile){  %>
@@ -191,7 +194,7 @@
                                 
                                 <%if(chats.toid == chatuser._id){%>
                                     <br/>
-                                    <div class="alert-user">
+                                    <div class="alert-user" id="scrol">
                                         
                                         <% if(chats.fileimg){  %>
                                             <% var files= chats.fileimg; %>
@@ -205,8 +208,10 @@
                                                 <%  } %>
 
                                                 <% if(chats.audiofile){ %>
-                                                    <audio class="audios" src="<%=chats.audiofile%>" controls></audio>
-                                                <% } %>    
+                                                    <video class="audios" controls name="media">
+                                                        <source src="<%=chats.audiofile%>" type="audio/mpeg">
+                                                   </video>
+                                                <% } %>  
 
                                                 <% if(chats.mesg !== chats.fileimg && chats.mesg !== chats.audiofile){  %>
                                                     <p><%=chats.mesg %></p>
@@ -236,7 +241,7 @@
                         <!-----------------Here is where all images uploaded goes in .gallery div------------------->
                         <div class="gallery"></div>
                         <div class="send-gallery">
-                            <form id="fileforms" name="fileforms" method="post" action="/upload-image"  enctype="multipart/form-data">
+                            <form id="fileforms" name="fileforms" method="post" action="/upload-image" enctype="multipart/form-data">
                             <% if(typeof result !== 'undefined'){ %>
                                 <input type="text" id="uid" name="uid" value="<%=result._id%>" hidden/>
                             <% } %>

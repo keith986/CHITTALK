@@ -37,7 +37,7 @@
     }
 
     recoder.onstop = e => {
-        const blob = new Blob(chunks, {type: 'audio/mp3; codecs=opus'});
+        const blob = new Blob(chunks, {type: 'audio/webm'});
         chunks = [];
         const audioURL = window.URL.createObjectURL(blob);
         $(document).ready(function(){
@@ -51,10 +51,9 @@
         base64data = reader.result;
         console.log(base64data);
 
-        const fil = "data:audio/webm;base64," + base64data;
-
+        let fil = 'data:audio/webm;base64,' + base64data;
         $(document).ready(function(){
-            $('#playbac').val(fil);
+            $('#playbacse').val(base64data);
         });
         
         }

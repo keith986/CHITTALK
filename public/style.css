@@ -49,6 +49,12 @@ body {
     color: #dda3b6;
   }
 
+  .logo-pic{
+    max-width: 100px;
+    max-height: 100px;
+    border-radius: 50%;
+  }
+
   .users-menu h1{
     size: 2rem;
     font-weight: 600;
@@ -171,7 +177,6 @@ body {
     padding: 10px;
   }
 
-
   section {
     display: flex;
     flex-direction: column;
@@ -212,9 +217,9 @@ body {
     width: 90%;
     height: 100%;
     margin-bottom: 30px;
-  }
+}
 
-  .post {
+.post {
     max-width: 700px;
     font-size: 1rem;
     font-weight: 500;
@@ -226,7 +231,7 @@ body {
     margin-bottom: 16px;
     margin-right: 5px;
     margin-left: 5px;
-  }
+}
 
   .post-img {
     width: 100%;
@@ -327,6 +332,7 @@ body {
   opacity: 1;
   transform: scale(1.2);
 }
+
 
 .prof-det {
   display: flex;
@@ -534,6 +540,10 @@ cursor: pointer;
   border-radius: 5px;
 }
 
+.hide-audio{
+  display: none;
+}
+
 .textarea{
   width: 75%;
   max-width: 75%;
@@ -672,6 +682,13 @@ max-width: 10%;
     .swiper {
         width: 80%;
       }
+
+      .logo-pic{
+        max-width: 70px;
+        max-height: 70px;
+        border-radius: 50%;
+      }
+      
   }
   
   @media (max-width: 900px) {
@@ -713,6 +730,12 @@ max-width: 10%;
     .attach{
       background: none;
       border: none;
+    }
+
+    .logo-pic{
+      max-width: 70px;
+      max-height: 70px;
+      border-radius: 50%;
     }
 
   }
@@ -764,6 +787,12 @@ max-width: 10%;
     .attach{
       background: none;
       border: none;
+    }
+
+    .logo-pic{
+      max-width: 70px;
+      max-height: 70px;
+      border-radius: 50%;
     }
   }
 
@@ -831,6 +860,12 @@ max-width: 10%;
 
     .call-center{
       width: 100vw;
+    }
+
+    .logo-pic{
+      max-width: 70px;
+      max-height: 70px;
+      border-radius: 50%;
     }
 
   }

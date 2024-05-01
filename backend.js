@@ -51,8 +51,8 @@ app.use(express.static('uploads'))
 app.use(express.static('voices'))
 
 //url extend url
-app.use(express.urlencoded({extended: false}))
-app.use(express.json())
+app.use(express.urlencoded({limit: '50mb',extended: false}))
+app.use(express.json({limit: '50mb'}))
 
 //images uploader with multer
 var storage = multer.diskStorage({
@@ -221,6 +221,21 @@ const chatid = req.query.chat;
                         .catch((err) => console.log(err))
 }) 
 
+app.get('/fetch-audio', (req,res) => {
+    const userid = req.query.userid;
+    const chatid = req.query.chat;
+    
+                    users.findById(chatid)
+                            .then((resultses) => {
+                    messages.find({$or : [{fromid : userid,toid: chatid},{fromid: chatid, toid: userid}]}).sort({createdAt : 1})
+                            .then((resultsess) => {
+                                res.render('audio-update', {chatuser:resultses, talk: resultsess})
+                            })
+                            .catch(err => console.log(err));
+                            })
+                            .catch((err) => console.log(err))
+}) 
+
 app.get('/fetch-mesguser', (req,res) => {
     const userid = req.query.userids;
     const chatid = req.query.chats;
@@ -273,22 +288,22 @@ app.post('/upload-image', uploads.array('galery'), (req,res) => {
 
 app.post('/upload-audio', uploads.any(), (req,res) => {
     console.log(req.body);
+    console.log(req.file);
 
     var {usid, chid, playback} = req.body;
  
     var randm = '99999999999';
     var generate = Math.floor(Math.random() * randm);
 
-    var filnme = `${generate}.mp3`;
+    var filnme = `${generate}.webm`;
 
-    var au_dio = playback;
     const buffer = Buffer.from(
-        au_dio.split('base64,')[1],  // only use encoded data after "base64,"
+        playback.split('base64,')[1],  // only use encoded data after "base64, .split('base64,')[1]"
         'base64'
       );
       fs.writeFileSync(`./voices/${filnme}`, buffer);
-      console.log(`wrote ${buffer.byteLength.toLocaleString()} bytes to file.`);
-
+      console.log(`wrote ${buffer.byteLength.toLocaleString()} bytes to file.`); 
+ 
         const sendmsg = messages({
             fromid: usid,
             toid: chid,

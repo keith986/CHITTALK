@@ -16,7 +16,7 @@ $(document).ready(function(){
 })
 
 $(document).ready(function(){
-    $('.attach').on('click', function(){
+$('.attach').on('click', function(){
         $('.options').animate({
             width: 'toggle'
         }, 500)
@@ -25,6 +25,9 @@ $(document).ready(function(){
  
 function sendMessage(){
 
+let chatzone = document.querySelector('.chatzone');
+chatzone.scrollTop = chatzone.scrollHeight;
+    
 const dater = new Date();
 let m = dater.getMonth() + 1;
 let d = dater.getDate();
@@ -66,21 +69,24 @@ $(document).ready(function(){
 }
 
  //auto-refresh swiper's div
- $(document).ready(function(){
- setInterval(() => {
-    $.ajax({
-        url : '/fetch-mesg',
-        type: 'GET',
-        data: {
-            userid: $('#userid').val(),
-            chat: $('#chatuserid').val()
-        },
-        success:function(data){
-           $('.chatzone').html(data); 
-        }
-    })
-    }, 500);
- })
+
+    $(document).ready(function(){ 
+        setInterval(() => {   
+           $.ajax({
+               url : '/fetch-mesg',
+               type: 'GET',
+               data: {
+                   userid: $('#userid').val(),
+                   chat: $('#chatuserid').val()
+               },
+               success:function(data){
+                $('.chatzone').html(data); 
+               }
+           })
+        }, 100); 
+        }) 
+ 
+   
 
 //auto-refresh chat user's in messages div
 $(document).ready(function(){
@@ -93,7 +99,7 @@ $(document).ready(function(){
                userids:$('#userid2').val(),
            },
            success:function(data){
-           $('.mess-users').html(data)
+            $('.mess-users').html(data)
            }
        })
        }, 4000);
@@ -158,6 +164,7 @@ $(document).ready(function(){
 })
 
 function sendAudios(){
+
     $(document).ready(function(){
 
         $.ajax({
@@ -166,7 +173,7 @@ function sendAudios(){
             data: {
                 usid: $('#usid').val(),
                 chid: $('#chid').val(),
-                playback: $('#playbac').val(),
+                playback: $('#playbacse').val(),
             },
             dataType: 'text',
             success:function(data){
@@ -177,15 +184,6 @@ function sendAudios(){
         $('#icns').trigger('click');
  
     }); 
-
-    let fil = document.getElementById('playbac').value;
-   
-    const formData = new FormData();
-    formData.append('file', fil);
-     return fetch('/upload-audio', {
-         method: 'POST',
-         body: formData
-     }).then(res => res.json());
 }
 
 
